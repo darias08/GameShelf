@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "975731283173",
+    "project_id": "gaminglibraryapp",
+    "storage_bucket": "gaminglibraryapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:975731283173:android:98b69f0ddd279b3ef6300c",
+        "android_client_info": {
+          "package_name": "com.gameshelf"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "975731283173-7navq6vh3tne8dsnr54v3ud7aea690dh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCHnKP8Nz5FJtwF53mHRy_avORUsIwovio"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "975731283173-7navq6vh3tne8dsnr54v3ud7aea690dh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,61 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "assets/fonts/Domine-Bold.ttf",
+      "sha1": "5a15d9ad6c78d8ddc3dcf4d3ba5a8ab13bfdf551"
+    },
+    {
+      "path": "assets/fonts/Domine-Medium.ttf",
+      "sha1": "917e3b60aa22c2221dfcc2403a3ffcfa9637726e"
+    },
+    {
+      "path": "assets/fonts/Domine-Regular.ttf",
+      "sha1": "3a41f728c8de463741fb4aebe544ba944c80e0f0"
+    },
+    {
+      "path": "assets/fonts/Domine-SemiBold.ttf",
+      "sha1": "7dadbd051bdcc3dd4b3c2f22a24ede629462c39c"
+    },
+    {
+      "path": "assets/fonts/EBGaramond-Bold.ttf",
+      "sha1": "e0659282d8b94962b1b817e4c3ffd5c011a038b0"
+    },
+    {
+      "path": "assets/fonts/EBGaramond-BoldItalic.ttf",
+      "sha1": "06751679a0b2a24d6e9ab40681885701ad8ee361"
+    },
+    {
+      "path": "assets/fonts/EBGaramond-ExtraBold.ttf",
+      "sha1": "304a83db3da81cee90cf0411ffcdb7688c0217dc"
+    },
+    {
+      "path": "assets/fonts/EBGaramond-ExtraBoldItalic.ttf",
+      "sha1": "d4e192111d179c775c00ad47c09db743b19ae1c0"
+    },
+    {
+      "path": "assets/fonts/EBGaramond-Italic.ttf",
+      "sha1": "d3e5ee356566c3af7f5677306601e13f0cba1dc4"
+    },
+    {
+      "path": "assets/fonts/EBGaramond-Medium.ttf",
+      "sha1": "8bde5da8e80492e6ef0e58919d4cad8c13d3a423"
+    },
+    {
+      "path": "assets/fonts/EBGaramond-MediumItalic.ttf",
+      "sha1": "040640ed7929f35508638f68463553ffbe43e48b"
+    },
+    {
+      "path": "assets/fonts/EBGaramond-Regular.ttf",
+      "sha1": "f9d4f4fdd61a278ea3b550f0feed95ce1b648be3"
+    },
+    {
+      "path": "assets/fonts/EBGaramond-SemiBold.ttf",
+      "sha1": "7cf5e845b7ad0f000dfe5e1df2cac0e056737292"
+    },
+    {
+      "path": "assets/fonts/EBGaramond-SemiBoldItalic.ttf",
+      "sha1": "ea633f57b6c1af7630618f978843ce6a25edb493"
+    }
+  ]
+}
