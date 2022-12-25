@@ -12,7 +12,6 @@ import {
 import React from 'react';
 import {getImage} from '../../services/GameServices';
 import COlORS from '../../constants/colors';
-import Video_Cover from './Video_Cover';
 import Icon  from 'react-native-vector-icons/Feather'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 

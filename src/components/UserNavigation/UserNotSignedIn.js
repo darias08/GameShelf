@@ -16,9 +16,7 @@ function UserNotSignedIn () {
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar
-          animated={true}
-          backgroundColor="#07071F"/>
+     <StatusBar hidden/> 
         <Stack.Navigator screenOptions={{headerShown: false}}>
 
           <Stack.Screen  

@@ -11,10 +11,7 @@ const VideoScreen = ({route}) => {
     const [playing, setPlaying] = useState(true)
     const {videoId}  = route.params;
     const [isLoading, setLoading] = useState(true)
-    
-    useEffect(() => {
-        Promise.all([])
-    })
+
 
     const onStateChange = useCallback((state) => {
         if (state === "ended") {
@@ -62,7 +59,7 @@ const VideoScreen = ({route}) => {
 
     return (
         <View style = {styles.container}>
-            <StatusBar  backgroundColor={'black'}/>
+            <StatusBar  hidden/>
             {getYoutubeVideo()}
                 
         </View>

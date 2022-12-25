@@ -13,15 +13,11 @@ import React, {useEffect, useState} from 'react';
 import COlORS from '../constants/colors';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import ReadMore from '@fawazahmed/react-native-read-more';
-import Screenshots from './components/Screenshots';
-import ListOfVideos from './components/ListOfVideos';
 import {getYoutubePoster} from '../services/GameServices';
 import {getImage} from '../services/GameServices';
-import SimilarGames from './components/SimilarGames';
-import GameRating from './components/GameRating';
+import GameRating from './components/Details/GameRating';
 import GameTabs from './components/GameTabs';
 import Artwork_Cover from './components/Artwork_Cover';
-import Video_Cover from './components/Video_Cover';
 
 const GameDetails = ({route, navigation}) => {
   const {
@@ -35,7 +31,6 @@ const GameDetails = ({route, navigation}) => {
     Videos,
     Artwork,
   } = route.params;
-
 
   return (
     <ScrollView
@@ -143,7 +138,6 @@ const GameDetails = ({route, navigation}) => {
       {/* Similar Games */}
       <View style={{marginTop: 30}}>
         <Text style={styles.subTitles}>Similar Games</Text>
-        <SimilarGames data={SG} />
       </View>
     </ScrollView>
   );

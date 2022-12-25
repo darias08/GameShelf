@@ -13,7 +13,7 @@ import ReadMore from '@fawazahmed/react-native-read-more';
 import { BoxShadow } from 'react-native-shadow'
 
 
-const {width, height} = Dimensions.get('window');
+const {width} = Dimensions.get('window');
 
 const SPACING = 10;
 const ITEM_SIZE = width * 0.60;
@@ -95,12 +95,13 @@ const MostAnticipatedGames = (props) => {
                     }}>
                       <TouchableOpacity activeOpacity={0.7} onPress = {()=>props.navigation.navigate('GamePreview',  
                       { gameName: item.name, gameCover: item.cover.image_id, gameReleased: item.first_release_date, gamePlatforms: item.platforms, 
-                      gameSummary: item.summary, SG: item.similar_games, Screenshot: item.screenshots, Videos: item.videos,
-                      involveCompanies: item.involved_companies, gameGenres: item.genres, artworks: item.artworks, age_Rating: item.age_ratings,
-                      age_Rating_Description: item.age_ratings, item })}>
+                      gameSummary: item.summary, similarGames: item.similar_games, Screenshot: item.screenshots, Videos: item.videos,
+                      involveCompanies: item.involved_companies, gameGenre: item.genres, artworks: item.artworks, age_Rating: item.age_ratings,
+                      age_Rating_Description: item.age_ratings, gameModes: item.game_modes, playerPerspectives: item.player_perspectives,
+                      gameEngine: item.game_engines, item })}>
                       
                       <BoxShadow setting = {shadowOpt}>
-                      <ImageBackground imageStyle={{borderRadius: 12, borderWidth: 3}} resizeMode='cover' style={styles.containerGames} source= {{uri: getImage(item.cover.image_id)}} /> 
+                        <ImageBackground imageStyle={{borderRadius: 12, borderWidth: 3}} resizeMode='cover' style={styles.containerGames} source= {{uri: getImage(item.cover.image_id)}} /> 
                       </BoxShadow>
 
 

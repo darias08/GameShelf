@@ -21,8 +21,6 @@ import VideoScreen from '../constants/VideoScreen';
 import PopularNow from '../home-screen/PopularNow';
 import NewReleaseVideos from '../constants/NewReleaseVideos';
 import NewReleases from '../home-screen/NewReleases';
-import ScreenTest1 from '../../Screens/Search/ScreenTest1';
-import ScreenTest2 from '../../Screens/Search/ScreenTest2';
 
 
 //Bottom Tab Names
@@ -32,14 +30,16 @@ const notificationName = 'Notification';
 const libraryName = 'Library';
 
 const Tab = createMaterialBottomTabNavigator();
+
 function MyTabs() {
+
   return (
     <SafeAreaView style={styles.container}>
     <StatusBar hidden/>  
       <Tab.Navigator
       activeColor='#fff'
       inactiveColor= '#666666' 
-      barStyle={{backgroundColor: "black"}} 
+      barStyle={{backgroundColor: COlORS.dark_gray}} 
       initialRouteName='HomeScreen' 
       screenOptions={({route}) => ({
         tabBarIcon: ({focused, color, size, fontSize}) => {
@@ -67,6 +67,7 @@ function MyTabs() {
       })}
       >
     
+    
     {/*Bottom Tab navigation*/}
     <Tab.Screen name={homeName} component = {StackScreen} />
     <Tab.Screen name={searchName} component = {SearchScreen}/>
@@ -75,6 +76,7 @@ function MyTabs() {
 
 
     </Tab.Navigator>
+
     </SafeAreaView>
   );
 }
@@ -99,7 +101,6 @@ const UserIsSignedIn = () => {
   
   const navigation = useNavigation();
   const Stack = createNativeStackNavigator();
- 
   
   return (
       <Stack.Navigator
@@ -125,7 +126,6 @@ const UserIsSignedIn = () => {
         }}/>
      
       
-      
       {/* {/* Playstation Screen  */}
       <Stack.Screen 
       name="Playstation" 
@@ -139,6 +139,7 @@ const UserIsSignedIn = () => {
       }} />
 
       <Stack.Screen name='GamePreview' component={GamePreviewScreen} />
+
 
       {/* <Stack.Screen 
       name="GamePreview" 
@@ -164,11 +165,11 @@ const UserIsSignedIn = () => {
       }}
       /> */}
 
-      <Stack.Screen name= "GameDetails" component={GameDetails} />
 
       <Stack.Screen name='NewReleaseVideos' component={NewReleaseVideos} />
       
       <Stack.Screen name='VideoScreen' component={VideoScreen} options= {{animationEnabled: false}}/>
+      
       
       </Stack.Navigator>
   

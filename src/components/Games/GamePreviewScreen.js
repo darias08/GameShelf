@@ -8,67 +8,62 @@ import {
   FlatList,
   SafeAreaView,
   ImageBackground,
+  ScrollView,
 } from 'react-native';
 import React from 'react';
 import COlORS from '../../components/constants/colors';
 import Icon from 'react-native-vector-icons/Feather';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import {getImage} from '../../components/services/GameServices';
-import {ScrollView} from 'react-native-gesture-handler';
-import {SharedElement} from 'react-navigation-shared-element';
-import ItemSeparator from '../../components/constants/ItemSeparator';
-import Artwork_Cover from './components/Artwork_Cover';
 import LinearGradient from 'react-native-linear-gradient';
 import {BoxShadow} from 'react-native-shadow';
 import TopTabNav from './components/TopTabNav';
-import GameRating from './components/GameRating';
+import TopTabNavigator from './components/TopTabNav';
+import GameRating from './components/Details/GameRating';
+import AgeRated from './components/Details/AgeRated';
+import Modal from './components/Details/components/Modal';
 
 const windowWidth = Dimensions.get('window').width;
 
 const GamePreviewScreen = ({route, navigation}) => {
   const {
+    gameId,
     gameName,
     gameCover,
-    gameGenres,
+    gameGenre,
     age_Rating,
     gameReleased,
     gamePlatforms,
     gameSummary,
-    SG,
     Screenshot,
     Videos,
     involveCompanies,
+    similarGames,
+    gameModes,
+    multiplayerModes,
+    playerPerspectives,
+    gameEngine,
     artworks,
     total_Rating,
     item,
   } = route.params;
 
-  
   const shadowOpt = {
-    width: 125,
+    width: 130,
     height: 145,
     color: '#000',
-    border: 2,
-    radius: 10,
+    border: 4,
+    radius: 5,
     blur: 10,
     opacity: 0.7,
-    x: 25,
-    y: 30,
-    style: {marginVertical: 5},
+    x: 0,
+    y: 0,
   };
 
-  let currentTimestamp = new Date(gameReleased * 1000);
-  let date = new Intl.DateTimeFormat('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: '2-digit',
-  }).format(currentTimestamp);
 
   return (
     <View style={{flex: 1}}>
       <ScrollView
         nestedScrollEnabled={true}
-        style={{width: '100%'}}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{flexGrow: 1}}>
         <ImageBackground
@@ -96,7 +91,6 @@ const GamePreviewScreen = ({route, navigation}) => {
                   marginLeft: 30,
                   marginTop: 20,
                   position: 'relative',
-                  
                 }}
                 source={require('../Images/Icons/chevron_left_circle.png')}
               />
@@ -112,10 +106,10 @@ const GamePreviewScreen = ({route, navigation}) => {
         </View>
 
         {/***************Game Cover****************/}
-        <View style={{flexDirection: 'row'}}>
+        <View style={{flexDirection: 'row', marginLeft: 30, marginTop: 25}}>
           <BoxShadow setting={shadowOpt}>
             <ImageBackground
-              imageStyle={{borderRadius: 10}}
+              imageStyle={{borderRadius: 5}}
               style={styles.containerGame}
               resizeMode="stretch"
               source={{uri: getImage(gameCover)}}>
@@ -129,8 +123,7 @@ const GamePreviewScreen = ({route, navigation}) => {
 
           <View style={{flexDirection: 'column'}}>
             <Text style={styles.GameTitle}>{gameName}</Text>
-
-            <ScrollView horizontal={true} style={{width: '100%'}}>
+            <ScrollView horizontal={true}>
               <FlatList
                 data={involveCompanies}
                 keyExtractor={(item, index) => {
@@ -150,42 +143,8 @@ const GamePreviewScreen = ({route, navigation}) => {
           </View>
         </View>
 
-        {/* Release Date */}
-        <View style={{flexDirection: 'row', marginTop: 25, marginLeft: 25}}>
-          <View style={{flexDirection: 'column'}}>
-            <Text
-              style={{
-                color: 'white',
-                marginTop: 30,
-                fontSize: 16,
-                fontFamily: 'Domine-Regular',
-              }}>
-              Release Date:
-            </Text>
-            <Text
-              style={{
-                color: COlORS.light,
-                marginTop: 15,
-                fontSize: 14,
-                fontFamily: 'Domine-Regular',
-              }}>
-              {date}
-            </Text>
-          </View>
-
-          <View style={{position: 'absolute', marginLeft: 130}}>
-            {/* Game Rating */}
-            <GameRating Rating={total_Rating} />
-          </View>
-        </View>
-
         {/***************Add Button****************/}
-        <View
-          style={{
-            flexDirection: 'row',
-            marginTop: 45,
-            marginBottom: 20,
-          }}>
+        <View style={{flexDirection: 'row', marginTop: 40, marginBottom: 25}}>
           <TouchableOpacity style={styles.AddButton} activeOpacity={0.8}>
             <Text style={styles.textAdd}>Add</Text>
             <Icon
@@ -201,33 +160,29 @@ const GamePreviewScreen = ({route, navigation}) => {
           </TouchableOpacity>
         </View>
         
-        
-        <TopTabNav ageRating = {age_Rating} gameDesc = {gameSummary} videoCover = {Videos}/>
+        <TopTabNavigator
+          ageRating={age_Rating}
+          gameDesc={gameSummary}
+          videoCover={Videos}
+          Screenshot={Screenshot}
+          involveCompanies={involveCompanies}
+          gameGenre={gameGenre}
+          gamePlatforms={gamePlatforms}
+          gameSummary={gameSummary}
+          similarGames={similarGames}
+          navigation={navigation}
+          gameModes={gameModes}
+          playerPerspectives={playerPerspectives}
+          gameEngine={gameEngine}
+          gameReleased={gameReleased}
+          total_Rating = {total_Rating}
+        />
 
-        
-        {/***************Game Title****************/}
-        {/* <View style = {{marginTop: 10}}>
-          <Text style = {styles.GameTitle}>{gameName}</Text>
-      </View> */}
-
-        {/***************Game Released****************/}
-        {/* <View>
-          <Text style = {styles.gameReleased}>{date}</Text>
-      </View> */}
-
-        {/***************Add Button****************/}
-        {/* <View style = {{flexDirection: 'row', justifyContent: 'space-evenly', marginTop: 30}}>
-          <TouchableOpacity style= {styles.AddButton}  activeOpacity={0.8} > 
-              <Text style={styles.textAdd}>Add</Text>
-              <Icon name ="more-horizontal" size={25} style={{color: 'white', marginLeft: 40}}/>
-          </TouchableOpacity> */}
-
-        {/***************Wishlist Button****************/}
-        {/* <TouchableOpacity style= {styles.WishlistButton}  activeOpacity={0.8} > 
-              <Text style={styles.textWishlist}>Wishlist</Text>
-          </TouchableOpacity>
-      </View> */}
+      
+        {/* /</View>  */}
       </ScrollView>
+
+      
     </View>
   );
 };
@@ -274,20 +229,16 @@ const styles = StyleSheet.create({
   moreIcon: {
     color: COlORS.white,
     marginTop: 20,
-    marginRight: 10
+    marginRight: 10,
   },
 
   containerGame: {
     backgroundColor: COlORS.light,
-    paddingLeft: 103,
     opacity: 0.9,
     height: 145,
-    width: 125,
-    marginBottom: 5,
-    borderRadius: 12,
+    width: 130,
+    borderRadius: 5,
     position: 'relative',
-    marginTop: 30,
-    marginLeft: 25,
   },
 
   FlatList: {
@@ -308,17 +259,17 @@ const styles = StyleSheet.create({
     fontFamily: 'EBGaramond-Bold',
     width: 210,
     textAlignVertical: 'center',
-    marginLeft: 50,
-    marginTop: 70,
+    marginLeft: 20,
+    marginTop: 25,
   },
 
   developerName: {
-    color: COlORS.light,
+    color: COlORS.new_light_color,
     fontSize: 16,
     fontFamily: 'EBGaramond-SemiBold',
-    width: 230,
+    width: 225,
     textAlignVertical: 'center',
-    marginLeft: 50,
+    marginLeft: 20,
     marginTop: 10,
   },
 
@@ -339,7 +290,7 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     paddingBottom: 12,
     borderRadius: 25,
-    marginLeft: 20,
+    marginLeft: 25,
     flexDirection: 'row',
   },
 
@@ -380,3 +331,113 @@ const styles = StyleSheet.create({
 });
 
 export default GamePreviewScreen;
+
+{
+  /* <View style={{flexDirection: 'row', marginTop: 10, marginLeft: 30}}>
+            <View style={{flexDirection: 'column'}}>
+              <Text
+                style={{
+                  color: 'white',
+                  marginTop: 30,
+                  fontSize: 16,
+                  fontFamily: 'Domine-Regular',
+                }}>
+                Release Date:
+              </Text>
+              <Text
+                style={{
+                  color: COlORS.light,
+                  marginTop: 15,
+                  fontSize: 14,
+                  fontFamily: 'Domine-Regular',
+                }}>
+                {date}
+              </Text>
+            </View>
+
+            <GameRating Rating={total_Rating} />
+            
+          </View> */
+}
+
+{
+  /* <View style={{flexDirection: 'column', backgroundColor: 'green'}}>
+            <Text style={styles.GameTitle}>{gameName}</Text>
+
+            <ScrollView horizontal={true}>
+            
+              <FlatList
+                data={involveCompanies}
+                keyExtractor={(item, index) => {
+                  return index.toString();
+                }}
+                renderItem={({item, index}) => {
+                  if (index === 0) {
+                    return (
+                      <Text style={styles.developerName}>
+                        {item.company.name}
+                      </Text>
+                    );
+                  }
+                }}
+              />
+              
+            </ScrollView>
+       
+          </View>
+        </View> */
+}
+
+{
+  /* Game Rating */
+}
+{
+  /* <View style={{position: 'absolute', marginLeft: 0}}>
+            <GameRating Rating={total_Rating} />
+        </View>  */
+}
+
+{
+  /* Release Date */
+}
+{
+  /* <View style={{flexDirection: 'row', marginTop: 25, marginLeft: 25}}>
+          <View style={{flexDirection: 'column'}}>
+            <Text
+              style={{
+                color: 'white',
+                marginTop: 30,
+                fontSize: 16,
+                fontFamily: 'Domine-Regular',
+              }}>
+              Release Date:
+            </Text>
+            <Text
+              style={{
+                color: COlORS.light,
+                marginTop: 15,
+                fontSize: 14,
+                fontFamily: 'Domine-Regular',
+              }}>
+              {date}
+            </Text>
+          </View> */
+}
+
+{
+  /***************Game Title****************/
+}
+{
+  /* <View style = {{marginTop: 10}}>
+          <Text style = {styles.GameTitle}>{gameName}</Text>
+      </View> */
+}
+
+{
+  /***************Game Released****************/
+}
+{
+  /* <View>
+          <Text style = {styles.gameReleased}>{date}</Text>
+      </View> */
+}

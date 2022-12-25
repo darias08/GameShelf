@@ -10,7 +10,8 @@ const COlORS = {
     red: 'red',
     light_gray: '#353535',
     dark_gray: '#1B191D',
-    light_green: '#00EA12'
+    light_green: '#00EA12',
+    new_light_color: '#DCDCE7'
 
 };
 

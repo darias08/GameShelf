@@ -17,7 +17,7 @@ const PlaystationScreen = ({navigation}) => {
   const [errors, setErrors] = React.useState({});
   const [loading, setLoading] = React.useState(false);
 
-//Validating information
+//Validating informationn
 const validate = () => { 
 
   Keyboard.dismiss();

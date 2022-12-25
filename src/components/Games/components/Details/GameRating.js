@@ -20,11 +20,11 @@ const GameRating = (props) => {
   const rating = props.rating;
 
   return (
-    <View style = {{marginTop: 20, marginLeft: 100, position: 'absolute'}}>
+    <View style = {{marginTop: -15, marginLeft: 265, position: 'absolute'}}>
       {!isNaN(props.Rating) && (
         <CircularProgress
         value={props.Rating}
-        radius={39}
+        radius={43}
         duration={1000}
         title={ratingStatus}
         activeStrokeWidth={5}

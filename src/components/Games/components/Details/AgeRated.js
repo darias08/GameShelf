@@ -8,11 +8,12 @@ import {
 } from 'react-native';
 import React from 'react';
 import COlORS from '../../../constants/colors';
+import ItemSeparator from '../../../constants/ItemSeparator';
+
 
 const AgeRated = props => {
-
   return (
-    <View style={{backgroundColor: 'black'}}>
+    <View style= {{marginBottom: 15, marginLeft:3}}>
       <ScrollView horizontal={true} style={{width: '100%'}}>
         <FlatList
           data={props.ageRated}
@@ -20,7 +21,6 @@ const AgeRated = props => {
             return index.toString();
           }}
           renderItem={({item, index}) => {
-
             //Rated Pending
             if (item.rating === 6) {
               return (
@@ -33,7 +33,7 @@ const AgeRated = props => {
                       marginLeft: 25,
                       marginTop: 30,
                     }}
-                    source={require('../../../Images/Age_Rated/Rated_PENDING.png')}
+                    source={require('../../../Images/Age_Rated/Rated_Pending.png')}
                   />
                   <View style={{flexDirection: 'column'}}>
                     <Text
@@ -44,7 +44,7 @@ const AgeRated = props => {
                         marginLeft: 20,
                         marginTop: 45,
                       }}>
-                      NOT YET RATED 
+                      Not Yet Rated
                     </Text>
 
                     <ScrollView>
@@ -63,7 +63,7 @@ const AgeRated = props => {
                                   fontFamily: 'EBGaramond-Medium',
                                   marginLeft: 20,
                                   marginTop: 5,
-                                  color: COlORS.light,
+                                  color: COlORS.grey,
                                 }}>
                                 {item.description}
                               </Text>
@@ -73,12 +73,10 @@ const AgeRated = props => {
                       />
                     </ScrollView>
                   </View>
-                </View>          
-              
-              )
-              
+                </View>
+              );
             }
-         
+
             //Rated E
             if (item.rating === 9 || item.rating === 8) {
               return (
@@ -102,7 +100,7 @@ const AgeRated = props => {
                         marginLeft: 20,
                         marginTop: 30,
                       }}>
-                      EVERYONE 
+                      EVERYONE
                     </Text>
 
                     <ScrollView>
@@ -121,7 +119,7 @@ const AgeRated = props => {
                                   fontFamily: 'EBGaramond-Medium',
                                   marginLeft: 20,
                                   marginTop: 5,
-                                  color: COlORS.light,
+                                  color: COlORS.grey,
                                 }}>
                                 {item.description}
                               </Text>
@@ -131,12 +129,10 @@ const AgeRated = props => {
                       />
                     </ScrollView>
                   </View>
-                </View>          
-              
-              )
-              
+                </View>
+              );
             }
-            
+
             //Rated T
             if (item.rating === 10) {
               return (
@@ -160,7 +156,7 @@ const AgeRated = props => {
                         marginLeft: 20,
                         marginTop: 30,
                       }}>
-                      TEEN 
+                      TEEN
                     </Text>
 
                     <ScrollView>
@@ -179,7 +175,7 @@ const AgeRated = props => {
                                   fontFamily: 'EBGaramond-Medium',
                                   marginLeft: 20,
                                   marginTop: 5,
-                                  color: COlORS.light,
+                                  color: COlORS.grey,
                                 }}>
                                 {item.description}
                               </Text>
@@ -189,10 +185,8 @@ const AgeRated = props => {
                       />
                     </ScrollView>
                   </View>
-                </View>          
-              
-              )
-              
+                </View>
+              );
             }
 
             //Rated M
@@ -218,34 +212,38 @@ const AgeRated = props => {
                         fontFamily: 'EBGaramond-Bold',
                         marginLeft: 20,
                         marginTop: 30,
+                        paddingRight: 30,
                       }}>
                       MATURE 17+
                     </Text>
 
-                    <ScrollView>
-                      <FlatList
-                        data={item.content_descriptions}
-                        keyExtractor={(item, index) => {
-                          return index.toString();
-                        }}
-                        horizontal
-                        renderItem={({item, index}) => {
+                    <ScrollView  style={{marginLeft: 20}}>
+                        <FlatList
+                          data={item.content_descriptions}
+                          keyExtractor={(item, index) => {
+                            return index.toString();
+                          }}
+                          horizontal
+                          renderItem={({item, index}) => {
+
+                            const arrayToJoin = [item]
+                          
                           if (index === 0 || index === 1) {
                             return (
                               <Text
                                 style={{
-                                  fontSize: 14,
+                                  fontSize: 16,
                                   fontFamily: 'EBGaramond-Medium',
-                                  marginLeft: 20,
                                   marginTop: 5,
-                                  color: COlORS.light,
+                                  color: COlORS.grey,
                                 }}>
-                                {item.description}
+                                {(index ? ',  ' : '') + item.description}
                               </Text>
+                              
                             );
                           }
-                        }}
-                      />
+                          }}
+                        />
                     </ScrollView>
                   </View>
                 </View>
@@ -275,6 +273,11 @@ const AgeRated = props => {
 };
 
 const styles = StyleSheet.create({
+  columnWrapper: {
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+  },
+
   Description: {
     color: 'white',
     marginLeft: 25,
@@ -285,7 +288,7 @@ const styles = StyleSheet.create({
 
   textStyle: {
     fontSize: 16,
-    color: COlORS.grey,
+    color: COlORS.light,
   },
 
   safe: {

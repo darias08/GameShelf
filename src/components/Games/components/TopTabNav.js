@@ -1,69 +1,95 @@
-import {View, Text} from 'react-native';
+import {View, Text, ScrollView, Dimensions} from 'react-native';
 import React from 'react';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import DetailSection from './Details/DetailSection';
-import Specifications from './Specifications';
+import Capabilities from './Capability/Capabilities';
+import COlORS from '../../constants/colors';
+import { createSharedElementStackNavigator } from 'react-navigation-shared-element';
+
+//Screens
+import ScreenSliderImages from './Details/components/ScreenSliderImages';
+
+
 
 const Tab = createMaterialTopTabNavigator();
 
 const TopTabNav = props => {
-  const gameDesc = props.gameDesc;
-  const ageRating = props.ageRating;
-  const ageDescription = props.ageDescription;
-  const videoCover = props.videoCover;
 
   return (
     <Tab.Navigator
       initialRouteName="Details"
       tabBarPosition="top"
-      style={{justifyContent: 'space-evenly', minHeight: 2000}}
+      style={{backgroundColor:'transparent'}}
+      
       screenOptions={{
         tabBarActiveTintColor: '#fff',
         tabBarStyle: {backgroundColor: 'transparent'},
         swipeEnabled: false,
         tabBarScrollEnabled: true,
-        tabBarLabelStyle: {color: 'red'},
-        
       }}>
+
+      
       <Tab.Screen
-        name="Details"
+        name="DETAILS"
         options={{
           tabBarIndicatorStyle: {
-            backgroundColor: 'white',
+            backgroundColor: COlORS.white,
             height: 5,
             borderRadius: 10,
             width: 80,
             marginLeft: 25,
+            
           },
-          tabBarLabelStyle: {textTransform: 'capitalize', fontSize: 14},
+          tabBarLabelStyle: {fontSize: 14},
           tabBarItemStyle: {width: 130},
         }}
         children={() => (
           <DetailSection
-            gameDesc={gameDesc}
-            ageRating={ageRating}
-            ageDescription={ageDescription}
-            videoCover = {videoCover}
+            gameDesc={props.gameDesc}
+            ageRating={props.ageRating}
+            ageDescription={props.ageDescription}
+            videoCover = {props.videoCover}
+            screenshots = {props.Screenshot}
+            involveCompanies = {props.involveCompanies}
+            gameGenre = {props.gameGenre}
+            gamePlatforms = {props.gamePlatforms}
+            gameSummary = {props.gameSummary}
+            similarGames = {props.similarGames}
+            navigation = {props.navigation}
+            gameReleased = {props.gameReleased}
+            gameName = {props.gameName}
+            total_Rating = {props.total_Rating}
+
           />
         )}
       />
 
       <Tab.Screen
-        name="Specifications"
-        component={Specifications}
+        name="Capabilities"
         options={{
-          tabBarLabelStyle: {textTransform: 'capitalize', fontSize: 14},
+          tabBarLabelStyle: {fontSize: 14},
           tabBarItemStyle: {width: 130},
           tabBarIndicatorStyle: {
-            backgroundColor: 'white',
+            backgroundColor: COlORS.white,
             height: 5,
             borderRadius: 10,
             width: 125,
+            marginLeft: 3
           },
         }}
+        children={() => (
+          <Capabilities
+            gamePlatforms = {props.gamePlatforms}
+            gameModes = {props.gameModes}
+            playerPerspectives = {props.playerPerspectives}
+            gameEngine = {props.gameEngine}
+            navigation = {props.navigation}
+          />
+        )}
       />
     </Tab.Navigator>
   );
 };
+
 
 export default TopTabNav;
