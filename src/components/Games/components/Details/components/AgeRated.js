@@ -7,13 +7,12 @@ import {
   StyleSheet,
 } from 'react-native';
 import React from 'react';
-import COlORS from '../../../constants/colors';
-import ItemSeparator from '../../../constants/ItemSeparator';
-
+import COlORS from '../../../../constants/colors';
+import ItemSeparator from '../../../../constants/ItemSeparator';
 
 const AgeRated = props => {
   return (
-    <View style= {{marginBottom: 15, marginLeft:3}}>
+    <View style={{marginTop: 15, marginLeft: 3}}>
       <ScrollView horizontal={true} style={{width: '100%'}}>
         <FlatList
           data={props.ageRated}
@@ -33,7 +32,7 @@ const AgeRated = props => {
                       marginLeft: 25,
                       marginTop: 30,
                     }}
-                    source={require('../../../Images/Age_Rated/Rated_Pending.png')}
+                    source={require('../../../../Images/Age_Rated/Rated_Pending.png')}
                   />
                   <View style={{flexDirection: 'column'}}>
                     <Text
@@ -89,7 +88,7 @@ const AgeRated = props => {
                       marginLeft: 25,
                       marginTop: 30,
                     }}
-                    source={require('../../../Images/Age_Rated/Rated_E.png')}
+                    source={require('../../../../Images/Age_Rated/Rated_E.png')}
                   />
                   <View style={{flexDirection: 'column'}}>
                     <Text
@@ -98,7 +97,8 @@ const AgeRated = props => {
                         fontSize: 16,
                         fontFamily: 'EBGaramond-Bold',
                         marginLeft: 20,
-                        marginTop: 30,
+                        marginTop: 35,
+                        position: 'relative',
                       }}>
                       EVERYONE
                     </Text>
@@ -145,7 +145,7 @@ const AgeRated = props => {
                       marginLeft: 25,
                       marginTop: 30,
                     }}
-                    source={require('../../../Images/Age_Rated/Rated_T.png')}
+                    source={require('../../../../Images/Age_Rated/Rated_T.png')}
                   />
                   <View style={{flexDirection: 'column'}}>
                     <Text
@@ -201,7 +201,7 @@ const AgeRated = props => {
                       marginLeft: 25,
                       marginTop: 30,
                     }}
-                    source={require('../../../Images/Age_Rated/Rated_M.png')}
+                    source={require('../../../../Images/Age_Rated/Rated_M.png')}
                   />
 
                   <View style={{flexDirection: 'column'}}>
@@ -217,17 +217,16 @@ const AgeRated = props => {
                       MATURE 17+
                     </Text>
 
-                    <ScrollView  style={{marginLeft: 20}}>
-                        <FlatList
-                          data={item.content_descriptions}
-                          keyExtractor={(item, index) => {
-                            return index.toString();
-                          }}
-                          horizontal
-                          renderItem={({item, index}) => {
+                    <ScrollView style={{marginLeft: 20}}>
+                      <FlatList
+                        data={item.content_descriptions}
+                        keyExtractor={(item, index) => {
+                          return index.toString();
+                        }}
+                        horizontal
+                        renderItem={({item, index}) => {
+                          const arrayToJoin = [item];
 
-                            const arrayToJoin = [item]
-                          
                           if (index === 0 || index === 1) {
                             return (
                               <Text
@@ -239,11 +238,10 @@ const AgeRated = props => {
                                 }}>
                                 {(index ? ',  ' : '') + item.description}
                               </Text>
-                              
                             );
                           }
-                          }}
-                        />
+                        }}
+                      />
                     </ScrollView>
                   </View>
                 </View>

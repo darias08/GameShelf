@@ -15,7 +15,6 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import ReadMore from '@fawazahmed/react-native-read-more';
 import {getYoutubePoster} from '../services/GameServices';
 import {getImage} from '../services/GameServices';
-import GameRating from './components/Details/GameRating';
 import GameTabs from './components/GameTabs';
 import Artwork_Cover from './components/Artwork_Cover';
 

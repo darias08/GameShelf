@@ -1,14 +1,24 @@
 import {View, Text, StyleSheet, ScrollView, SafeAreaView} from 'react-native';
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import ScrollTest from './ScrollTest';
 import TopTabNav from '../../components/Games/components/TopTabNav';
-import Modal from '../../components/Games/components/Details/components/Modal';
+import ImageView from "react-native-image-viewing";
+import { IGDB_HTTP_REQUEST_POPULAR } from "../../components/services/GameServices";
 
 const SearchScreen = ({navigation}) => {
+
+  const [Popular, setPopularNow] = useState([]);
+
+
+ 
+ 
+  const [visible, setIsVisible] = useState(false);
+
   return (
     <View style={styles.container}>
-      <Modal />
+
+     
     </View>
   );
 };
@@ -16,7 +26,7 @@ const SearchScreen = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#0C0E26',
+    backgroundColor: 'black',
   },
 });
 

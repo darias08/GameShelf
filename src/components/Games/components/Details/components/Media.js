@@ -14,24 +14,27 @@ import React, {useState, useCallback, useEffect} from 'react';
 import {
   getYoutubePoster,
   getYoutubePosterNoMaxRes,
-} from '../../../services/GameServices';
-import {getImage} from '../../../services/GameServices';
-import COlORS from '../../../constants/colors';
+} from '../../../../services/GameServices';
+import {getImage} from '../../../../services/GameServices';
+import COlORS from '../../../../constants/colors';
 import {YOUTUBE_API_KEY} from '@env';
-import ItemSeparator from '../../../constants/ItemSeparator';
+import ItemSeparator from '../../../../constants/ItemSeparator';
 import {ActivityIndicator} from 'react-native-paper';
-import ModalTester from './components/Modal';
-import { useNavigation } from '@react-navigation/native';
+import ModalTester from './Modals/MediaModal';
+import {useNavigation} from '@react-navigation/native';
+import ImageView from 'react-native-image-viewing';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 const SPACING = 10;
 
-const Media = (props) => {
+const Media = props => {
   const [playing, setPlaying] = useState(true);
   const videos = props.videoCover;
   const screenshot = props.screenshots;
-  const final = videos.concat(screenshot);
+  const allData = videos.concat(screenshot);
   const [isModalVisible, setModalVisible] = useState(false);
   const [clickedIndex, setClickedIndex] = useState(0);
+
 
   const shadowOpt = {
     width: 125,
@@ -45,17 +48,11 @@ const Media = (props) => {
     y: 0,
   };
 
-  // const onStateChange = useCallback(state => {
-  //   if (state === 'ended') {
-  //     setPlaying(false);
-  //   }
-  // }, []);
-
   return (
-    <View>
-      <ScrollView style={{marginTop: 25}}>
+    <SafeAreaView>
+      <ScrollView style={{marginTop:35}}>
         <FlatList
-          data={final}
+          data={allData}
           keyExtractor={(item, index) => {
             return index.toString();
           }}
@@ -63,15 +60,38 @@ const Media = (props) => {
           bounces={false}
           showsHorizontalScrollIndicator={false}
           style={styles.FlatList}
-          decelerationRate={0.7}
+          decelerationRate={'fast'}
           disableIntervalMomentum={false}
           pagingEnabled={true}
           snapToAlignment={'start'}
-          ListFooterComponent={() => <ItemSeparator width={100} />}
+          ListFooterComponent={() => <ItemSeparator width={70} />}
           scrollEventThrottle={16}
           initialNumToRender={5}
           renderItem={({item, index}) => {
-            if (item.video_id) {
+            if (item.image_id) {
+              return (
+                <View
+                  style={{
+                    marginHorizontal: SPACING,
+                    backgroundColor: COlORS.dark_gray,
+                    borderRadius: 10,
+                  }}>
+                  <TouchableOpacity
+                    activeOpacity={0.8}
+                    onPress={() => {
+                      setModalVisible(!isModalVisible);
+                      setClickedIndex(index);
+                    }}>
+                    <ImageBackground
+                      imageStyle={{borderRadius: 10}}
+                      resizeMode="stretch"
+                      source={{uri: getImage(item.image_id)}}
+                      style={{width: 340, height: 225}}
+                    />
+                  </TouchableOpacity>
+                </View>
+              );
+            } else if (item.video_id) {
               return (
                 <View
                   style={{
@@ -83,45 +103,20 @@ const Media = (props) => {
                     imageStyle={{borderRadius: 10}}
                     resizeMode="stretch"
                     source={{uri: getYoutubePoster(item.video_id)}}
-                    style={{width: 330, height: 200}}>
+                    style={{width: 340, height: 225}}>
                     <TouchableOpacity
                       activeOpacity={0.7}
                       style={styles.playButton}
                       onPress={() => {
                         setModalVisible(!isModalVisible);
-                        setClickedIndex(item.video_id);
+                        setClickedIndex(index);
                       }}>
                       <Image
                         style={{width: 45, height: 45}}
-                        source={require('../../../Images/Icons/play_button.png')}
+                        source={require('../../../../Images/Icons/play_button.png')}
                       />
                     </TouchableOpacity>
                   </ImageBackground>
-                </View>
-              );
-            } 
-            
-            else if (item.image_id) {
-              return (
-                <View
-                  style={{
-                    marginHorizontal: SPACING,
-                    backgroundColor: COlORS.dark_gray,
-                    borderRadius: 10,
-                  }}>
-                  <TouchableOpacity
-                    activeOpacity={0.8}
-                    onPress={() => {
-                        setModalVisible(!isModalVisible);
-                    }}
-                    >
-                    <ImageBackground
-                      imageStyle={{borderRadius: 10}}
-                      resizeMode="stretch"
-                      source={{uri: getImage(item.image_id)}}
-                      style={{width: 330, height: 200}}
-                    />
-                  </TouchableOpacity>
                 </View>
               );
             }
@@ -131,10 +126,12 @@ const Media = (props) => {
         <ModalTester
           showModal={isModalVisible}
           closeModal={setModalVisible}
-          videoID={clickedIndex}
+          indexId={clickedIndex}
+          allData={allData}
+          allVideoId={videos}
         />
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -143,8 +140,8 @@ const styles = StyleSheet.create({
     zIndex: 1,
     alignSelf: 'flex-end',
     position: 'absolute',
-    top: 85,
-    right: 135,
+    top: 95,
+    right: 140,
     justifyContent: 'center',
     alignContent: 'center',
   },

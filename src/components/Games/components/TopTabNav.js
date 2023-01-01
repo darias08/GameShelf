@@ -6,27 +6,28 @@ import Capabilities from './Capability/Capabilities';
 import COlORS from '../../constants/colors';
 import { createSharedElementStackNavigator } from 'react-navigation-shared-element';
 
-//Screens
-import ScreenSliderImages from './Details/components/ScreenSliderImages';
-
-
 
 const Tab = createMaterialTopTabNavigator();
+
+const win = Dimensions.get('window')
 
 const TopTabNav = props => {
 
   return (
     <Tab.Navigator
-      initialRouteName="Details"
+      initialRouteName="HomeScreen"
       tabBarPosition="top"
       style={{backgroundColor:'transparent'}}
-      
+      backBehavior={'none'}
       screenOptions={{
         tabBarActiveTintColor: '#fff',
         tabBarStyle: {backgroundColor: 'transparent'},
         swipeEnabled: false,
         tabBarScrollEnabled: true,
-      }}>
+        
+      }}      
+      >
+
 
       
       <Tab.Screen
@@ -36,12 +37,11 @@ const TopTabNav = props => {
             backgroundColor: COlORS.white,
             height: 5,
             borderRadius: 10,
-            width: 80,
-            marginLeft: 25,
-            
           },
           tabBarLabelStyle: {fontSize: 14},
           tabBarItemStyle: {width: 130},
+           
+
         }}
         children={() => (
           <DetailSection
@@ -59,7 +59,8 @@ const TopTabNav = props => {
             gameReleased = {props.gameReleased}
             gameName = {props.gameName}
             total_Rating = {props.total_Rating}
-
+            gameSeries = {props.gameSeries}
+            gameDLC = {props.gameDLC}
           />
         )}
       />
@@ -67,15 +68,14 @@ const TopTabNav = props => {
       <Tab.Screen
         name="Capabilities"
         options={{
-          tabBarLabelStyle: {fontSize: 14},
+          tabBarLabelStyle: {fontSize: 14,},
           tabBarItemStyle: {width: 130},
           tabBarIndicatorStyle: {
             backgroundColor: COlORS.white,
             height: 5,
             borderRadius: 10,
-            width: 125,
-            marginLeft: 3
           },
+          
         }}
         children={() => (
           <Capabilities

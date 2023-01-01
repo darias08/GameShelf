@@ -16,9 +16,6 @@ const GameRating = (props) => {
   if (props.Rating > 79.5) ratingColor = '#b1f51d', ratingStatus = 'Decent'
   if (props.Rating > 89.5) ratingColor = '#82f51d', ratingStatus = 'Very Good'
   
-
-  const rating = props.rating;
-
   return (
     <View style = {{marginTop: -15, marginLeft: 265, position: 'absolute'}}>
       {!isNaN(props.Rating) && (

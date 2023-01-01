@@ -16,20 +16,15 @@ import Icon from 'react-native-vector-icons/Feather';
 import {getImage} from '../../components/services/GameServices';
 import LinearGradient from 'react-native-linear-gradient';
 import {BoxShadow} from 'react-native-shadow';
-import TopTabNav from './components/TopTabNav';
 import TopTabNavigator from './components/TopTabNav';
-import GameRating from './components/Details/GameRating';
-import AgeRated from './components/Details/AgeRated';
-import Modal from './components/Details/components/Modal';
 
 const windowWidth = Dimensions.get('window').width;
 
 const GamePreviewScreen = ({route, navigation}) => {
   const {
-    gameId,
     gameName,
     gameCover,
-    gameGenre,
+    gameGenres,
     age_Rating,
     gameReleased,
     gamePlatforms,
@@ -44,8 +39,11 @@ const GamePreviewScreen = ({route, navigation}) => {
     gameEngine,
     artworks,
     total_Rating,
+    gameSeries,
+    gameDLC,
     item,
   } = route.params;
+
 
   const shadowOpt = {
     width: 130,
@@ -144,7 +142,7 @@ const GamePreviewScreen = ({route, navigation}) => {
         </View>
 
         {/***************Add Button****************/}
-        <View style={{flexDirection: 'row', marginTop: 40, marginBottom: 25}}>
+        <View style={{flexDirection: 'row', marginTop: 35, marginBottom: 25}}>
           <TouchableOpacity style={styles.AddButton} activeOpacity={0.8}>
             <Text style={styles.textAdd}>Add</Text>
             <Icon
@@ -159,6 +157,8 @@ const GamePreviewScreen = ({route, navigation}) => {
             <Text style={styles.textWishlist}>Wishlist</Text>
           </TouchableOpacity>
         </View>
+
+
         
         <TopTabNavigator
           ageRating={age_Rating}
@@ -166,7 +166,7 @@ const GamePreviewScreen = ({route, navigation}) => {
           videoCover={Videos}
           Screenshot={Screenshot}
           involveCompanies={involveCompanies}
-          gameGenre={gameGenre}
+          gameGenre={gameGenres}
           gamePlatforms={gamePlatforms}
           gameSummary={gameSummary}
           similarGames={similarGames}
@@ -176,6 +176,9 @@ const GamePreviewScreen = ({route, navigation}) => {
           gameEngine={gameEngine}
           gameReleased={gameReleased}
           total_Rating = {total_Rating}
+          gameSeries= {gameSeries}
+          gameName = {gameName}
+          gameDLC = {gameDLC}
         />
 
       

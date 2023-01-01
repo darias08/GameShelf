@@ -8,9 +8,9 @@ import {
   Dimensions
 } from 'react-native';
 import React from 'react';
-import COlORS from '../../../constants/colors';
-import ItemSeparator from '../../../constants/ItemSeparator';
-import { getImage } from '../../../services/GameServices';
+import COlORS from '../../../../constants/colors';
+import ItemSeparator from '../../../../constants/ItemSeparator';
+import { getImage } from '../../../../services/GameServices';
 
 const SimilarGames = ({navigation, similarGames}) => {
 
@@ -18,7 +18,7 @@ const SimilarGames = ({navigation, similarGames}) => {
     return(
 
     <View>
-      <Text style ={{color: 'white', fontFamily: 'EBGaramond-Bold', fontSize: 20, marginLeft: 25, marginTop: 10}}>Similar Games</Text>
+      <Text style ={{color: 'white', fontFamily: 'EBGaramond-Bold', fontSize: 20, marginLeft: 25, marginTop: 45}}>Similar Games</Text>
       <FlatList
       data={similarGames}
       keyExtractor={(item, index) => {
@@ -38,9 +38,7 @@ const SimilarGames = ({navigation, similarGames}) => {
                 activeOpacity={0.7}
                 onPress={() =>
                   navigation.push('GamePreview', {
-                    gameName: item.similar_games.similar_games.name,
-                    similarGames: item.similar_games,
-                    
+                   
                   })
                 }>
               <Image

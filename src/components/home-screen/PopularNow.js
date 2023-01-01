@@ -62,6 +62,8 @@ const PopularNow = props => {
                     multiplayerModes: item.multiplayer_modes,
                     playerPerspectives: item.player_perspectives,
                     gameEngine: item.game_engines,
+                    gameSeries: item.collection,
+                    gameDLC: item.dlcs,
                     item,
                   })
                 }>
@@ -88,7 +90,7 @@ const PopularNow = props => {
                     Screenshot: item.screenshots,
                     Videos: item.videos,
                     involveCompanies: item.involved_companies,
-                    gameGenre: item.genres,
+                    gameGenres: item.genres,
                     artworks: item.artworks,
                     total_Rating: item.total_rating,
                     age_Rating: item.age_ratings,
@@ -97,6 +99,8 @@ const PopularNow = props => {
                     multiplayerModes: item.multiplayer_modes,
                     playerPerspectives: item.player_perspectives,
                     gameEngine: item.game_engines,
+                    gameSeries: item.collection,
+                    gameDLC: item.dlcs,
                     item,
                   })
                 }>

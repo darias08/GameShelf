@@ -1,8 +1,8 @@
 import { View, Text, ScrollView, FlatList, StyleSheet } from 'react-native'
 import React from 'react'
-import COlORS from '../../../constants/colors'
+import COlORS from '../../../../constants/colors'
 import { text } from 'express';
-import ItemSeparator from '../../../constants/ItemSeparator';
+import ItemSeparator from '../../../../constants/ItemSeparator';
 
 
 const Platforms_Genre = (props) => {

@@ -1,6 +1,6 @@
 import {View, Text, StyleSheet} from 'react-native';
 import React from 'react';
-import COlORS from '../../../constants/colors';
+import COlORS from '../../../../constants/colors';
 import GameRating from './GameRating';
 
 const ReleaseDate_Rating = props => {
@@ -15,7 +15,7 @@ const ReleaseDate_Rating = props => {
   }).format(currentTimestamp);
 
   return (
-    <View style={{flexDirection: 'row', marginTop: 25}}>
+    <View style={{flexDirection: 'row', marginTop: 40}}>
       <View style={{flexDirection: 'column'}}>
 
         <Text style={styles.textReleaseDate}>Release Date: </Text>
