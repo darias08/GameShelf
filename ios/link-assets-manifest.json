@@ -56,6 +56,42 @@
     {
       "path": "assets/fonts/EBGaramond-SemiBoldItalic.ttf",
       "sha1": "ea633f57b6c1af7630618f978843ce6a25edb493"
+    },
+    {
+      "path": "assets/fonts/RobotoSlab-Black.ttf",
+      "sha1": "36a20e74119dc8bb276d5db1b959c14dec7d26bd"
+    },
+    {
+      "path": "assets/fonts/RobotoSlab-Bold.ttf",
+      "sha1": "7bfea10c4050e0bce05c56d9d303788773430fa3"
+    },
+    {
+      "path": "assets/fonts/RobotoSlab-ExtraBold.ttf",
+      "sha1": "f8c2d699b2c73c7a91b270381f3ad9026c9f2104"
+    },
+    {
+      "path": "assets/fonts/RobotoSlab-ExtraLight.ttf",
+      "sha1": "fb579fe3a387f03b60649b5eb43bad3b53949f8a"
+    },
+    {
+      "path": "assets/fonts/RobotoSlab-Light.ttf",
+      "sha1": "c0cc03f0dbcc5a7330526b31d6e1c039e49f6385"
+    },
+    {
+      "path": "assets/fonts/RobotoSlab-Medium.ttf",
+      "sha1": "ef9abee58409c5ad6191ab528b2d1f753462f166"
+    },
+    {
+      "path": "assets/fonts/RobotoSlab-Regular.ttf",
+      "sha1": "40da9134dfa586bc4b6c62b6540269d3d497f480"
+    },
+    {
+      "path": "assets/fonts/RobotoSlab-SemiBold.ttf",
+      "sha1": "bfa8c530ab10e9db394bc3d1f57a46c5a4e7c859"
+    },
+    {
+      "path": "assets/fonts/RobotoSlab-Thin.ttf",
+      "sha1": "afab4e69adea6eb87842c75129ebed1de387d85c"
     }
   ]
 }

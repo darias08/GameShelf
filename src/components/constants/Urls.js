@@ -7,7 +7,7 @@ const PSN_USERPROFILE_ACCOUNT_ID = "https://us-prof.np.community.playstation.net
 
 //https://img.youtube.com/vi/video_id/maxresdefault.jpg
 const YOUTUBE_POSTER = 'https://img.youtube.com/vi';
-const IGDB_IMAGE_ID = 'https://images.igdb.com/igdb/image/upload/t_1080p';
+const IGDB_IMAGE_ID = 'https://images.igdb.com/igdb/image/upload/t_720p';
 
 
 export {

@@ -39,7 +39,6 @@ const UserCollections = (props) => {
             style={styles.cardImage} 
             source={{uri: item.game_background.url}} />
 
-            <View>
                 
             <View  style= {styles.cardBottomBackground}>
 
@@ -60,7 +59,6 @@ const UserCollections = (props) => {
                         
             </View>
 
-            </View>
             </TouchableOpacity>
         }
         />

@@ -32,7 +32,7 @@ const AgeRated = props => {
                       marginLeft: 25,
                       marginTop: 30,
                     }}
-                    source={require('../../../../Images/Age_Rated/Rated_Pending.png')}
+                    source={require('../../../../Images/Age_Rated/Rated_PENDING.png')}
                   />
                   <View style={{flexDirection: 'column'}}>
                     <Text

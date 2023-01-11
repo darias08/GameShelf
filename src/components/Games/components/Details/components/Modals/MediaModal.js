@@ -14,6 +14,13 @@ import YoutubePlayer from 'react-native-youtube-iframe';
 import ItemSeparator from '../../../../../constants/ItemSeparator';
 import {getImage} from '../../../../../services/GameServices';
 import Swiper from 'react-native-swiper';
+import Video from 'react-native-video';
+import {
+  VideoPlayer,
+  DefaultMainControl,
+  DefaultBottomControlsBar,
+  videoId,
+} from 'react_native_youtube_streamer';
 
 const {width, height} = Dimensions.get('screen');
 const SPACING = 10;
@@ -24,7 +31,6 @@ const ModalTester = ({
   indexId,
   allData,
   indexClicked,
-  allVideoId,
 }) => {
   const [playing, setPlaying] = useState(true);
 
@@ -70,28 +76,10 @@ const ModalTester = ({
             {Data.map((item, index) => {
               if (item.video_id) {
                 return (
-                  <View key={item.id} style={styles.containerVideo}>
-                    <View style={{backgroundColor: 'black', height: 225}}>
-                      <View>
-                        <ActivityIndicator
-                          color={COlORS.blue}
-                          style={{
-                            position: 'absolute',
-                            marginTop: 100,
-                            marginLeft: 195,
-                          }}
-                        />
-                      </View>
-
-                      <YoutubePlayer
-                        forceAndroidAutoplay
-                        play={playing}
-                        height={300}
-                        width={width}
-                        videoId={item.video_id}
-                        onChangeState={onStateChange}
-                      />
-                    </View>
+                  <View key={item.id} style={{backgroundColor: 'black', height: 225}}>
+                      
+                     
+                      
                   </View>
                 );
               } else if (item.image_id)
@@ -112,12 +100,7 @@ const ModalTester = ({
                     />
                   </View>
                 );
-            else if (!item.video_id) {
-              
-            }
-            }
-            
-            )}
+            })}
           </Swiper>
         </View>
       </Modal>
@@ -126,14 +109,15 @@ const ModalTester = ({
 };
 
 const styles = StyleSheet.create({
-  containerVideo: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    flex: 1,
-    width: width,
-    height: height,
-    marginBottom: 70,
+  backgroundVideo: {
+    top: 150,
+    left: 0,
+    bottom: 0,
+    right: 0,
+    backgroundColor: 'black',
   },
+
+  containerVideo: {},
 
   Flatlist: {
     alignItems: 'center',

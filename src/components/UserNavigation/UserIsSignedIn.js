@@ -10,7 +10,6 @@ import { createStackNavigator } from 'react-navigation-stack';
 
 //Screens
 import HomeScreen from '../../Screens/Home/HomeScreen';
-import SearchScreen from '../../Screens/Search/SearchScreen';
 import NotificationScreen from '../../Screens/Notifications/NotificationScreen';
 import LibraryScreen from '../../Screens/Library/LibraryScreen';
 import ProfileScreen from '../../Screens/Home/ProfileScreen';
@@ -25,7 +24,6 @@ import NewReleases from '../home-screen/NewReleases';
 
 //Bottom Tab Names
 const homeName = 'Home';
-const searchName = 'Search';
 const notificationName = 'Notification';
 const libraryName = 'Library';
 
@@ -37,24 +35,21 @@ function MyTabs() {
     <SafeAreaView style={styles.container}>
     <StatusBar hidden/>  
       <Tab.Navigator
-      activeColor='#fff'
+      activeColor={COlORS.lightBlue}
       inactiveColor= '#666666' 
-      barStyle={{backgroundColor: COlORS.dark_gray}} 
-      initialRouteName='HomeScreen' 
+      barStyle={{backgroundColor: '#0C0C0D'}} 
+      initialRouteName='Home' 
       screenOptions={({route}) => ({
         tabBarIcon: ({focused, color, size, fontSize}) => {
           let iconName;
           let routeName = route.name;
 
-          if (routeName === homeName) {
-            iconName = focused ? 'home' : 'home-outline' 
-          }
-          else if (routeName === searchName) {
-              iconName = focused ? 'search' : 'search-outline'
-          }
-          
-          else if (routeName === notificationName) {
+          if (routeName === notificationName) {
               iconName = focused ? 'notifications' : 'notifications-outline'
+          }
+
+          else if (routeName === homeName) {
+            iconName = focused ? 'home' : 'home-outline' 
           }
 
           else if (routeName === libraryName) {
@@ -69,9 +64,9 @@ function MyTabs() {
     
     
     {/*Bottom Tab navigation*/}
-    <Tab.Screen name={homeName} component = {StackScreen} />
-    <Tab.Screen name={searchName} component = {SearchScreen}/>
+    
     <Tab.Screen name={notificationName} component = {NotificationScreen}/>
+    <Tab.Screen name={homeName} component = {StackScreen} />
     <Tab.Screen name={libraryName} component = {LibraryScreen}/>
 
 

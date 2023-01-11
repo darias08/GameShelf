@@ -1,20 +1,22 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, SafeAreaView, ScrollView, Dimensions } from 'react-native'
 import React from 'react'
+import LinearGradient from "react-native-linear-gradient";
 
 
 const NotificationScreen = ({navigation}) => {
   return (
-    <View style = {style.container}>
-     
-    </View>
+    <LinearGradient colors={[ '#000', '#000']}>
+      <SafeAreaView style = {{height: Dimensions.get('screen').height, width: Dimensions.get('screen').width}}>
+          <ScrollView showsVerticalScrollIndicator={false} nestedScrollEnabled={true} style={{ width: "100%" }} >
+
+          </ScrollView>
+      </SafeAreaView>
+    </LinearGradient>
   )
 }
 
 const style = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#0C0E26',
-  }
+  
 })
 
 export default NotificationScreen

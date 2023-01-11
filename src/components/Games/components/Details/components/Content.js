@@ -29,7 +29,7 @@ const Content = props => {
   involvedCompanies.push(involvedCompanies[0]);
 
   return (
-    <View style={{flexDirection: 'column', marginTop: 15}}>
+    <View style={{flexDirection: 'column', marginTop: 5, marginLeft: 5}}>
       {/* Game Series */}
       {props.gameSeries && displayContent ? (
         <View>

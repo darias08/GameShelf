@@ -19,8 +19,9 @@ const GameCapability = (props) => {
             keyExtractor={(item, index) => {
             return  index.toString();
             }}
+            style={{paddingLeft: 0}}
             columnWrapperStyle= {{flexWrap: 'wrap'}}
-            numColumns={3}
+            numColumns={4}
             renderItem = {({item, index}) => 
             
                 <Text style = {styles.platformsText}>{item.name}</Text>
@@ -34,24 +35,23 @@ const GameCapability = (props) => {
 
 const styles = StyleSheet.create({
     textCapability: {
-        color: 'white',
-        fontSize: 20,
-        fontFamily: 'EBGaramond-Bold',
-        marginLeft: 30, 
-        marginTop: 25
+    color: 'white',
+    fontFamily: 'RobotoSlab-Regular',
+    fontSize: 16,
+    marginTop: 25,
+    marginLeft: 30,
     },
 
     platformsText: {
         color: 'white',
         backgroundColor: COlORS.dark_gray,
-        borderRadius: 10,
+        borderRadius: 15,
         padding: 10,
         borderColor: 'white',
         borderWidth: 1,
         marginLeft: 10,
         marginTop: 15,
-        fontSize: 12
-
+        fontSize: 10,
     }
 })
 

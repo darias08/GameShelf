@@ -2,203 +2,636 @@ import {
   View,
   Text,
   StyleSheet,
-  Image,
   TouchableOpacity,
   Dimensions,
   FlatList,
-  SafeAreaView,
   ImageBackground,
   ScrollView,
+  SafeAreaView,
+  ActivityIndicator,
 } from 'react-native';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import COlORS from '../../components/constants/colors';
-import Icon from 'react-native-vector-icons/Feather';
-import {getImage} from '../../components/services/GameServices';
-import LinearGradient from 'react-native-linear-gradient';
-import {BoxShadow} from 'react-native-shadow';
-import TopTabNavigator from './components/TopTabNav';
+import Feather from 'react-native-vector-icons/Feather';
+import {
+  getImage,
+  IGDB_HTTP_REQUEST_PLATFORMS,
+} from '../../components/services/GameServices';
+import StarRating, {StarRatingDisplay} from 'react-native-star-rating-widget';
+import ReadMore from '@fawazahmed/react-native-read-more';
+import Media from './components/Details/components/Media';
+import AvailablePlatforms from './components/Capability/AvailablePlatforms';
+import GameCapability from './components/Capability/GameCapability';
+import Content from './components/Details/components/Content';
+import SimilarGames from './components/Details/components/SimilarGames';
+import GameDetailsServiceRequest from '../services/GameDetailsService';
 
-const windowWidth = Dimensions.get('window').width;
+const {width} = Dimensions.get('window');
 
 const GamePreviewScreen = ({route, navigation}) => {
-  const {
-    gameName,
-    gameCover,
-    gameGenres,
-    age_Rating,
-    gameReleased,
-    gamePlatforms,
-    gameSummary,
-    Screenshot,
-    Videos,
-    involveCompanies,
-    similarGames,
-    gameModes,
-    multiplayerModes,
-    playerPerspectives,
-    gameEngine,
-    artworks,
-    total_Rating,
-    gameSeries,
-    gameDLC,
-    item,
-  } = route.params;
+  const {gameId} = route.params;
+  const [loading, setLoading] = useState(true);
+  const [game, setGameDetails] = useState([]);
+  const [displayRating, setDisplayRating] = useState(true);
+  const [displayReleaseDate, setReleaseDate] = useState(true);
 
+  useEffect(() => {
+    GameDetailsServiceRequest(gameId)
+      .then(response => {
+        setGameDetails(response.data);
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error(err);
+      });
+  }, []);
 
-  const shadowOpt = {
-    width: 130,
-    height: 145,
-    color: '#000',
-    border: 4,
-    radius: 5,
-    blur: 10,
-    opacity: 0.7,
-    x: 0,
-    y: 0,
-  };
-
+  // involveCompanies.push(involveCompanies[0]);
 
   return (
-    <View style={{flex: 1}}>
-      <ScrollView
-        nestedScrollEnabled={true}
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{flexGrow: 1}}>
-        <ImageBackground
-          blurRadius={60}
-          resizeMode="stretch"
-          source={{uri: getImage(gameCover)}}
-          style={{width: '100%', height: '100%', position: 'absolute'}}>
-          <View
-            style={{
-              height: '100%',
-              width: '100%',
-              backgroundColor: 'rgba(0, 0, 0, 0.5)',
-            }}
-          />
-        </ImageBackground>
-
-        {/***************Back Button****************/}
-        <View style={styles.projectRow}>
-          <View style={styles.projectText}>
-            <TouchableOpacity onPress={() => navigation.goBack()}>
-              <Image
-                style={{
-                  width: 45,
-                  height: 45,
-                  marginLeft: 30,
-                  marginTop: 20,
-                  position: 'relative',
-                }}
-                source={require('../Images/Icons/chevron_left_circle.png')}
-              />
-            </TouchableOpacity>
-          </View>
-
-          {/***************More Button****************/}
-          <View style={styles.moreContainer}>
-            <TouchableOpacity activeOpacity={0.5}>
-              <Icon name="more-horizontal" size={30} style={styles.moreIcon} />
-            </TouchableOpacity>
-          </View>
-        </View>
-
-        {/***************Game Cover****************/}
-        <View style={{flexDirection: 'row', marginLeft: 30, marginTop: 25}}>
-          <BoxShadow setting={shadowOpt}>
-            <ImageBackground
-              imageStyle={{borderRadius: 5}}
-              style={styles.containerGame}
-              resizeMode="stretch"
-              source={{uri: getImage(gameCover)}}>
-              <LinearGradient
-                colors={['transparent', 'rgba(10,10,10,0.4)']}
-                locations={[0.4, 1.2]}
-                style={styles.linearGradient}
-              />
-            </ImageBackground>
-          </BoxShadow>
-
-          <View style={{flexDirection: 'column'}}>
-            <Text style={styles.GameTitle}>{gameName}</Text>
-            <ScrollView horizontal={true}>
-              <FlatList
-                data={involveCompanies}
-                keyExtractor={(item, index) => {
-                  return index.toString();
-                }}
-                renderItem={({item, index}) => {
-                  if (index === 0) {
-                    return (
-                      <Text style={styles.developerName}>
-                        {item.company.name}
-                      </Text>
-                    );
-                  }
-                }}
-              />
-            </ScrollView>
-          </View>
-        </View>
-
-        {/***************Add Button****************/}
-        <View style={{flexDirection: 'row', marginTop: 35, marginBottom: 25}}>
-          <TouchableOpacity style={styles.AddButton} activeOpacity={0.8}>
-            <Text style={styles.textAdd}>Add</Text>
-            <Icon
-              name="more-horizontal"
-              size={25}
-              style={{color: 'white', marginLeft: 40}}
-            />
-          </TouchableOpacity>
-
-          {/***************Wishlist Button****************/}
-          <TouchableOpacity style={styles.WishlistButton} activeOpacity={0.8}>
-            <Text style={styles.textWishlist}>Wishlist</Text>
-          </TouchableOpacity>
-        </View>
-
-
-        
-        <TopTabNavigator
-          ageRating={age_Rating}
-          gameDesc={gameSummary}
-          videoCover={Videos}
-          Screenshot={Screenshot}
-          involveCompanies={involveCompanies}
-          gameGenre={gameGenres}
-          gamePlatforms={gamePlatforms}
-          gameSummary={gameSummary}
-          similarGames={similarGames}
-          navigation={navigation}
-          gameModes={gameModes}
-          playerPerspectives={playerPerspectives}
-          gameEngine={gameEngine}
-          gameReleased={gameReleased}
-          total_Rating = {total_Rating}
-          gameSeries= {gameSeries}
-          gameName = {gameName}
-          gameDLC = {gameDLC}
+    <View style={{flex: 1, backgroundColor: '#0D0C0E'}}>
+      {loading ? (
+        <ActivityIndicator
+          size={35}
+          color={COlORS.blue}
+          style={{marginTop: 240}}
         />
+      ) : (
+        <View style={{flex: 1, backgroundColor: '#0D0C0E'}}>
+          {game.map(item => {
+            if (!item.first_release_date) {
+              const involveCompanies = item.involved_companies;
+              let rating = item.total_rating;
+              let half = (rating / 5 / 20) * 5;
+              var roundRating = half.toFixed(1);
 
-      
-        {/* /</View>  */}
-      </ScrollView>
+              return (
+                <View key={item.id}>
+                  <ScrollView
+                    nestedScrollEnabled={true}
+                    showsVerticalScrollIndicator={false}>
+                    {/***************Back Button****************/}
+                    <View style={styles.projectRow}>
+                      <View style={styles.projectText}>
+                        <TouchableOpacity onPress={() => navigation.goBack()}>
+                          <Feather
+                            name={'chevron-left'}
+                            size={35}
+                            color={'white'}
+                          />
+                        </TouchableOpacity>
 
-      
+                        <Text
+                          style={{
+                            color: 'white',
+                            fontSize: 16,
+                            marginLeft: 95,
+                            marginTop: 5,
+                          }}>
+                          Game Details
+                        </Text>
+                      </View>
+
+                      {/***************More Button****************/}
+                      <View style={styles.moreContainer}>
+                        <TouchableOpacity activeOpacity={0.5}>
+                          <Feather
+                            name="more-horizontal"
+                            size={30}
+                            style={styles.moreIcon}
+                          />
+                        </TouchableOpacity>
+                      </View>
+                    </View>
+
+                    {/***************Game Cover****************/}
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        marginLeft: 33,
+                        marginTop: 35,
+                      }}>
+                      <ImageBackground
+                        imageStyle={{borderRadius: 20}}
+                        style={styles.containerGame}
+                        resizeMode="cover"
+                        source={{
+                          uri: getImage(item.cover.image_id),
+                        }}></ImageBackground>
+                    </View>
+
+                    <View
+                      style={{justifyContent: 'center', alignItems: 'center'}}>
+                      <Text
+                        style={{
+                          fontSize: 18,
+                          color: 'white',
+                          fontFamily: 'RobotoSlab-Regular',
+                          marginTop: 25,
+                          textAlign: 'center',
+                          width: 300,
+                        }}>
+                        {item.name}
+                      </Text>
+
+                      <ScrollView
+                        horizontal={true}
+                        showsHorizontalScrollIndicator={false}>
+                        <FlatList
+                          data={item.genres}
+                          keyExtractor={item => item.id.toString()}
+                          numColumns={2}
+                          style={{marginTop: 10}}
+                          renderItem={({item, index}) => {
+                            if (index === 0 || index === 1) {
+                              return (
+                                <Text
+                                  style={{
+                                    marginLeft: 5,
+                                    color: COlORS.light,
+                                    fontFamily: 'RobotoSlab-Regular',
+                                    fontSize: 10,
+                                    padding: 10,
+                                    borderRadius: 10,
+                                    backgroundColor: '#242425',
+                                  }}>
+                                  {item.name}
+                                </Text>
+                              );
+                            }
+                          }}
+                        />
+                      </ScrollView>
+
+                      {item.total_rating && displayRating
+                        ? !isNaN(roundRating) && (
+                            <View style={{flexDirection: 'row', marginTop: 11}}>
+                              <StarRatingDisplay
+                                starSize={20}
+                                rating={roundRating}
+                                enableHalfStar={true}
+                                style={{marginTop: 3}}
+                                maxStars={5}
+                                starStyle={{width: 10}}
+                              />
+
+                              <Text
+                                style={{
+                                  color: 'white',
+                                  fontSize: 16,
+                                  marginLeft: 15,
+                                  marginRight: 5,
+                                  fontFamily: 'RobotoSlab-Bold',
+                                }}>
+                                {roundRating}
+                              </Text>
+                            </View>
+                          )
+                        : null}
+                    </View>
+
+                    <Text style={styles.Description}>Description</Text>
+
+                    <SafeAreaView style={styles.safe}>
+                      <View style={styles.root}>
+                        <ReadMore
+                          seeMoreStyle={{color: COlORS.blue}}
+                          animate={true}
+                          seeLessStyle={{color: COlORS.blue}}
+                          seeMoreText="Read more"
+                          seeLessText="Read less"
+                          style={styles.textStyle}
+                          numberOfLines={9}>
+                          <Text style={{lineHeight: 22}}>{item.summary}</Text>
+                        </ReadMore>
+                      </View>
+                    </SafeAreaView>
+
+                    {/* Release Date & Developer */}
+
+                    <View style={{flexDirection: 'row'}}>
+                      <View style={{flexDirection: 'column'}}>
+                        <Text
+                          style={{
+                            color: 'white',
+                            fontSize: 16,
+                            fontFamily: 'RobotoSlab-Regular',
+                            marginLeft: 30,
+                            marginTop: 20,
+                          }}>
+                          Release Date
+                        </Text>
+                        <Text
+                          style={{
+                            marginTop: 10,
+                            marginLeft: 30,
+                            fontSize: 13,
+                            fontFamily: 'RobotoSlab-Regular',
+                            color: COlORS.grey,
+                          }}>
+                          To be determined...
+                        </Text>
+                      </View>
+
+                      <View style={{flexDirection: 'column'}}>
+                        <Text
+                          style={{
+                            color: 'white',
+                            fontSize: 16,
+                            fontFamily: 'RobotoSlab-Regular',
+                            marginLeft: 35,
+                            marginTop: 20,
+                          }}>
+                          Developer
+                        </Text>
+
+                        <View
+                          style={{
+                            marginLeft: 35,
+                            flexWrap: 'wrap',
+                            flexShrink: 1,
+                          }}>
+                          {involveCompanies.map((item, index) => {
+                            if (index === 1) {
+                              return (
+                                <Text
+                                  key={item.id}
+                                  style={{
+                                    marginTop: 10,
+                                    fontSize: 13,
+                                    fontFamily: 'RobotoSlab-Regular',
+                                    color: COlORS.grey,
+                                    width: width / 2,
+                                  }}>
+                                  {item.company.name}
+                                </Text>
+                              );
+                            }
+                          })}
+                        </View>
+                      </View>
+                    </View>
+
+                    <Text
+                      style={{
+                        color: 'white',
+                        fontFamily: 'RobotoSlab-Regular',
+                        fontSize: 16,
+                        marginTop: 30,
+                        marginLeft: 30,
+                      }}>
+                      Media
+                    </Text>
+                    <Media
+                      videoCover={item.videos}
+                      screenshots={item.screenshots}
+                    />
+
+                    <Text
+                      style={{
+                        color: 'white',
+                        fontFamily: 'RobotoSlab-Regular',
+                        fontSize: 16,
+                        marginTop: 45,
+                        marginLeft: 30,
+                      }}>
+                      More Information
+                    </Text>
+
+                    <Content
+                      involveCompanies={involveCompanies}
+                      navigation={navigation}
+                    />
+
+                    {/* <AvailablePlatforms gamePlatforms={gamePlatforms}/> */}
+
+                    {/* <GameCapability gameModes= {gameModes} playerPerspectives = {playerPerspectives} ganeEngine = {gameEngine}/> */}
+
+                    <SimilarGames
+                      navigation={navigation}
+                      similarGames={item.similar_games}
+                    />
+                  </ScrollView>
+                </View>
+              );
+            } 
+            
+            else if (item.first_release_date) {
+              const involveCompanies = item.involved_companies;
+
+              let rating = item.total_rating;
+              let half = (rating / 5 / 20) * 5;
+              var roundRating = half.toFixed(1);
+
+              let currentTimestamp = new Date(item.first_release_date * 1000);
+              let date = new Intl.DateTimeFormat('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: '2-digit',
+              }).format(currentTimestamp);
+              return (
+                <View key={item.id}>
+                  <ScrollView
+                    nestedScrollEnabled={true}
+                    showsVerticalScrollIndicator={false}>
+                    {/***************Back Button****************/}
+                    <View style={styles.projectRow}>
+                      <View style={styles.projectText}>
+                        <TouchableOpacity onPress={() => navigation.goBack()}>
+                          <Feather
+                            name={'chevron-left'}
+                            size={35}
+                            color={'white'}
+                          />
+                        </TouchableOpacity>
+
+                        <Text
+                          style={{
+                            color: 'white',
+                            fontSize: 16,
+                            marginLeft: 95,
+                            marginTop: 5,
+                          }}>
+                          Game Details
+                        </Text>
+                      </View>
+
+                      {/***************More Button****************/}
+                      <View style={styles.moreContainer}>
+                        <TouchableOpacity activeOpacity={0.5}>
+                          <Feather
+                            name="more-horizontal"
+                            size={30}
+                            style={styles.moreIcon}
+                          />
+                        </TouchableOpacity>
+                      </View>
+                    </View>
+
+                    {/***************Game Cover****************/}
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        marginLeft: 33,
+                        marginTop: 35,
+                      }}>
+                      <ImageBackground
+                        imageStyle={{borderRadius: 20}}
+                        style={styles.containerGame}
+                        resizeMode="cover"
+                        source={{
+                          uri: getImage(item.cover.image_id),
+                        }}></ImageBackground>
+                    </View>
+
+                    <View
+                      style={{justifyContent: 'center', alignItems: 'center'}}>
+                      <Text
+                        style={{
+                          fontSize: 18,
+                          color: 'white',
+                          fontFamily: 'RobotoSlab-Regular',
+                          marginTop: 25,
+                          textAlign: 'center',
+                          width: 300,
+                        }}>
+                        {item.name}
+                      </Text>
+
+                      <ScrollView
+                        horizontal={true}
+                        showsHorizontalScrollIndicator={false}>
+                        <FlatList
+                          data={item.genres}
+                          keyExtractor={item => item.id.toString()}
+                          numColumns={2}
+                          style={{marginTop: 10}}
+                          renderItem={({item, index}) => {
+                            if (index === 0 || index === 1) {
+                              return (
+                                <Text
+                                  style={{
+                                    marginLeft: 5,
+                                    color: COlORS.light,
+                                    fontFamily: 'RobotoSlab-Regular',
+                                    fontSize: 10,
+                                    padding: 10,
+                                    borderRadius: 10,
+                                    backgroundColor: '#242425',
+                                  }}>
+                                  {item.name}
+                                </Text>
+                              );
+                            }
+                          }}
+                        />
+                      </ScrollView>
+
+                      {item.total_rating && displayRating
+                        ? !isNaN(roundRating) && (
+                            <View style={{flexDirection: 'row', marginTop: 11}}>
+                              <StarRatingDisplay
+                                starSize={20}
+                                rating={roundRating}
+                                enableHalfStar={true}
+                                style={{marginTop: 3}}
+                                maxStars={5}
+                                starStyle={{width: 10}}
+                              />
+
+                              <Text
+                                style={{
+                                  color: 'white',
+                                  fontSize: 16,
+                                  marginLeft: 15,
+                                  marginRight: 5,
+                                  fontFamily: 'RobotoSlab-Bold',
+                                }}>
+                                {roundRating}
+                              </Text>
+                            </View>
+                          )
+                        : null}
+                    </View>
+
+                    <Text style={styles.Description}>Description</Text>
+
+                    <SafeAreaView style={styles.safe}>
+                      <View style={styles.root}>
+                        <ReadMore
+                          seeMoreStyle={{color: COlORS.blue}}
+                          animate={true}
+                          seeLessStyle={{color: COlORS.blue}}
+                          seeMoreText="Read more"
+                          seeLessText="Read less"
+                          style={styles.textStyle}
+                          numberOfLines={9}>
+                          <Text style={{lineHeight: 22}}>{item.summary}</Text>
+                        </ReadMore>
+                      </View>
+                    </SafeAreaView>
+
+                    {/* Release Date & Developer */}
+
+                    <View style={{flexDirection: 'row'}}>
+                      <View style={{flexDirection: 'column'}}>
+                        <Text
+                          style={{
+                            color: 'white',
+                            fontSize: 16,
+                            fontFamily: 'RobotoSlab-Regular',
+                            marginLeft: 30,
+                            marginTop: 20,
+                          }}>
+                          Release Date
+                        </Text>
+                        <Text
+                          style={{
+                            marginTop: 10,
+                            marginLeft: 30,
+                            fontSize: 13,
+                            fontFamily: 'RobotoSlab-Regular',
+                            color: COlORS.grey,
+                          }}>
+                          {date}
+                        </Text>
+                      </View>
+
+                      <View style={{flexDirection: 'column'}}>
+                        <Text
+                          style={{
+                            color: 'white',
+                            fontSize: 16,
+                            fontFamily: 'RobotoSlab-Regular',
+                            marginLeft: 35,
+                            marginTop: 20,
+                          }}>
+                          Developer
+                        </Text>
+
+                        <View
+                          style={{
+                            marginLeft: 35,
+                            flexWrap: 'wrap',
+                            flexShrink: 1,
+                          }}>
+                          {involveCompanies.map((item, index) => {
+                            if (index === 1) {
+                              return (
+                                <Text
+                                  key={item.id}
+                                  style={{
+                                    marginTop: 10,
+                                    fontSize: 13,
+                                    fontFamily: 'RobotoSlab-Regular',
+                                    color: COlORS.grey,
+                                    width: width / 2,
+                                  }}>
+                                  {item.company.name}
+                                </Text>
+                              );
+                            }
+                          })}
+                        </View>
+                      </View>
+                    </View>
+
+                    <Text
+                      style={{
+                        color: 'white',
+                        fontFamily: 'RobotoSlab-Regular',
+                        fontSize: 16,
+                        marginTop: 30,
+                        marginLeft: 30,
+                      }}>
+                      Media
+                    </Text>
+                    <Media
+                      videoCover={item.videos}
+                      screenshots={item.screenshots}
+                    />
+
+                    <Text
+                      style={{
+                        color: 'white',
+                        fontFamily: 'RobotoSlab-Regular',
+                        fontSize: 16,
+                        marginTop: 45,
+                        marginLeft: 30,
+                      }}>
+                      More Information
+                    </Text>
+
+                    <Content
+                      involveCompanies={involveCompanies}
+                      navigation={navigation}
+                    />
+
+                    {/* <AvailablePlatforms gamePlatforms={gamePlatforms}/> */}
+
+                    {/* <GameCapability gameModes= {gameModes} playerPerspectives = {playerPerspectives} ganeEngine = {gameEngine}/> */}
+
+                    <SimilarGames
+                      navigation={navigation}
+                      similarGames={item.similar_games}
+                    />
+                  </ScrollView>
+                </View>
+              );
+            }
+          })}
+        </View>
+      )}
+      {/* <View style={{flexDirection: 'row', marginTop: 15, marginBottom: 15}}>
+        <TouchableOpacity style={styles.AddButton} activeOpacity={0.8}>
+          <Text style={styles.textAdd}>Add</Text>
+          <Feather
+            name="more-horizontal"
+            size={25}
+            style={{color: 'white', marginLeft: 40}}
+          />
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.WishlistButton} activeOpacity={0.8}>
+          <Text style={styles.textWishlist}>Wishlist</Text>
+        </TouchableOpacity>
+      </View> */}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  linearGradient: {
+  Description: {
+    color: 'white',
+    marginLeft: 30,
+    marginTop: 25,
+    fontSize: 16,
+    fontFamily: 'EBGaramond-Bold',
+  },
+
+  safe: {
+    marginLeft: 15,
+  },
+  root: {
+    padding: 10,
+    marginLeft: 5,
+  },
+  textStyle: {
+    fontSize: 16,
+    fontFamily: 'RobotoSlab-Regular',
+    color: COlORS.grey,
+  },
+
+  myStarStyle: {
+    color: 'yellow',
     backgroundColor: 'transparent',
-    position: 'absolute',
-    borderRadius: 12,
-    top: 0,
-    bottom: 0,
-    left: 0,
-    right: 0,
+    textShadowColor: 'black',
+    textShadowOffset: {width: 1, height: 1},
+    textShadowRadius: 2,
+  },
+
+  myEmptyStarStyle: {
+    color: 'grey',
   },
 
   Genres: {
@@ -216,6 +649,8 @@ const styles = StyleSheet.create({
   projectText: {
     flex: 1,
     flexDirection: 'row',
+    marginLeft: 30,
+    marginTop: 20,
   },
 
   projectRow: {
@@ -232,15 +667,14 @@ const styles = StyleSheet.create({
   moreIcon: {
     color: COlORS.white,
     marginTop: 20,
-    marginRight: 10,
   },
 
   containerGame: {
-    backgroundColor: COlORS.light,
-    opacity: 0.9,
-    height: 145,
-    width: 130,
-    borderRadius: 5,
+    backgroundColor: COlORS.dark_gray,
+    height: 380,
+    width: 300,
+    borderRadius: 20,
+    marginLeft: 25,
     position: 'relative',
   },
 
@@ -266,56 +700,39 @@ const styles = StyleSheet.create({
     marginTop: 25,
   },
 
-  developerName: {
-    color: COlORS.new_light_color,
-    fontSize: 16,
-    fontFamily: 'EBGaramond-SemiBold',
-    width: 225,
-    textAlignVertical: 'center',
-    marginLeft: 20,
-    marginTop: 10,
-  },
-
-  gameReleased: {
-    color: COlORS.light,
-    marginLeft: 50,
-    fontFamily: 'Fontspring-DEMO-audela-bolditalic',
-    marginTop: 10,
-    fontSize: 16,
-  },
-
   AddButton: {
     alignItems: 'flex-start',
     backgroundColor: '#424FDA',
-    width: 150,
-    height: 45,
-    paddingTop: 10,
+    width: 170,
+    height: 53,
+    paddingTop: 15,
     paddingLeft: 10,
     paddingBottom: 12,
-    borderRadius: 25,
-    marginLeft: 25,
+    borderRadius: 20,
+    marginLeft: 35,
     flexDirection: 'row',
   },
 
   textAdd: {
     color: 'white',
-    marginLeft: 15,
+    marginLeft: 25,
     fontSize: 16,
   },
 
   WishlistButton: {
     alignItems: 'center',
-    backgroundColor: 'rgba(255, 255, 255, 0.3)',
-    width: 150,
-    height: 45,
-    paddingTop: 10,
-    paddingBottom: 12,
-    borderRadius: 25,
-    marginLeft: 45,
+    backgroundColor: 'rgba(255, 255, 255, 0.0)',
+    borderWidth: 1.5,
+    borderColor: COlORS.light,
+    width: 170,
+    height: 53,
+    paddingTop: 13,
+    borderRadius: 20,
+    marginLeft: 25,
   },
 
   textWishlist: {
-    color: 'white',
+    color: COlORS.light,
     fontSize: 16,
   },
 

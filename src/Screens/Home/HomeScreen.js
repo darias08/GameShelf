@@ -18,6 +18,7 @@ import LinearGradient from "react-native-linear-gradient";
 import { SafeAreaView } from "react-native-safe-area-context";
 import MaterialCommunityIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import {YOUTUBE_CHANNEL_API, RAWG_API_COLLECTIONS} from '@env'
+import SearchGames from "../../components/home-screen/SearchGames";
 
 
 const screenHeight = Dimensions.get("screen").height;
@@ -28,12 +29,11 @@ export default function HomeScreen ({navigation}) {
   const [topRatedGames, setTopRatedGames] = useState([]);
   const [mostAnticipated, setMostAnticipated] = useState([]);
   const [newReleases, setNewReleases] = useState([]);
-  const [Popular, setPopularNow] = useState([]);
+  const [Popular, setPopularNow] = useState({});
   const [collections, setCollections] = useState();
   const [Genres, setGenres] = useState();
 
   let [isLoading, setIsLoading] = useState(true);
-
 
   useEffect(() => {
 
@@ -79,11 +79,11 @@ export default function HomeScreen ({navigation}) {
         console.log(err)
         }),
         
-    ]).then(() => {
-      setIsLoading(false)
-    }).catch(err => {
-      console.log(err)
-    });
+      ]).then(() => {
+        setIsLoading(false)
+      }).catch(err => {
+        console.log(err)
+      });
     
      
   }, [])
@@ -95,7 +95,7 @@ export default function HomeScreen ({navigation}) {
       'X-RapidAPI-Host': 'youtube138.p.rapidapi.com'
     }
   };
- 
+  
 
   const getContent = () => {
 
@@ -110,27 +110,44 @@ export default function HomeScreen ({navigation}) {
     return (
     <View>
         <ScrollView showsVerticalScrollIndicator={false} nestedScrollEnabled={true} scrollsToTop={true}>
-          
-        {/* <View style={styles.topHeader}>
-        <View style= {{flexDirection: 'column'}}>
-          <Text style = {styles.textWelcome}>welcome back, </Text>
-          <Text style = {{color: 'white', marginLeft: 30, marginTop: 10, fontSize: 18, fontWeight: 'bold'}}>Username</Text>
-        </View>
-        
-        <TouchableOpacity activeOpacity={0.7} onPress={()=>navigation.navigate('Profile')}>
-            <MaterialCommunityIcon name = {'account-circle'} size={50} color={'white'} style = {{marginTop: 30, marginLeft: 150, position: 'relative'}} />
-          </TouchableOpacity>
+
+        {/* <View style={{flexDirection: 'row', justifyContent: 'center', marginTop: 20}}>
+          <Text style={{color: 'white', fontSize: 25, fontFamily: 'RobotoSlab-Bold', marginTop: 25, paddingBottom: 5}}>Discover</Text>
+          <TouchableOpacity
+          activeOpacity={0.7}
+          onPress={() => props.navigation.navigate('Profile')}
+          style={{marginTop: 45, }}>
+          <Image
+            source={require('../../components/Images/profile.png')}
+            style={{width: 45, height: 45, position: 'absolute', marginLeft: 65, marginTop: -25}}
+          />
+        </TouchableOpacity>
         </View> */}
 
-        <MostAnticipatedGames  data = {mostAnticipated} navigation = {navigation}  />
+        <View style={{flexDirection: 'row', justifyContent: 'center', marginTop: 20}}>
+          <Text style={{color: 'white', fontSize: 25, fontFamily: 'RobotoSlab-Bold', marginTop: 25, paddingBottom: 5}}>Discover</Text>
+
+          <TouchableOpacity
+          activeOpacity={0.7}
+          onPress={() => navigation.navigate('Profile')}
+          style={{marginTop: 25, position: 'absolute', }}>
+          <MaterialCommunityIcon name= 'account-circle' size = {50} color={COlORS.light} style={{backgroundColor: COlORS.dark_gray, borderRadius: 50,  marginLeft: 310, marginTop: -5}}/>
+        </TouchableOpacity>
+        </View>
+
+        <SearchGames />
+
+        <ListOfGenres data = {Genres}/>
+         
+        
+
+        {/* <ForYouGamesNoAlgorithm/> */}
 
         <PopularNow data = {Popular} navigation = {navigation} />
+
+        <MostAnticipatedGames  data = {mostAnticipated} navigation = {navigation}  />
 {/* 
-        <MostAnticipatedGames  data = {mostAnticipated} navigation = {navigation}  />
-
         <NewReleases data = {newReleases} navigation = {navigation}/>
-
-        <PopularNow data = {Popular} navigation = {navigation} />
 
         <UserCollections data = {collections} />
 
@@ -151,7 +168,7 @@ export default function HomeScreen ({navigation}) {
 
   return (
 
-    <LinearGradient colors={[ '#000', '#000',  ]}>
+    <LinearGradient colors={[ '#0c0c0d', '#0c0c0d']}>
       <SafeAreaView style = {{height: Dimensions.get('screen').height, width: Dimensions.get('screen').width}}>
           <ScrollView showsVerticalScrollIndicator={false} nestedScrollEnabled={true} style={{ width: "100%" }} >
           {getContent()}

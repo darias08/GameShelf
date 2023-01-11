@@ -17,13 +17,11 @@ const GameRating = (props) => {
   if (props.Rating > 89.5) ratingColor = '#82f51d', ratingStatus = 'Very Good'
   
   return (
-    <View style = {{marginTop: -15, marginLeft: 265, position: 'absolute'}}>
+    <View style = {{marginTop: 30, marginLeft: 285, position: 'absolute'}}>
       {!isNaN(props.Rating) && (
         <CircularProgress
         value={props.Rating}
-        radius={43}
-        duration={1000}
-        title={ratingStatus}
+        radius={35}
         activeStrokeWidth={5}
         progressValueColor={'#ecf0f1'}
         activeStrokeColor={ratingColor}
@@ -33,9 +31,7 @@ const GameRating = (props) => {
       {isNaN(props.Rating) && (
         <CircularProgress
         value={0}
-        radius={40}
-        duration={1000}
-        title={'N/A'}
+        radius={35}
         activeStrokeWidth={8}
         progressValueColor={'#ecf0f1'}
         activeStrokeColor={ratingColor}

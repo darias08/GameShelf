@@ -26,8 +26,6 @@ const DeveloperGames = ({
 
   const involvedCompanies = involveCompanies;
 
-  involvedCompanies.push(involvedCompanies[0]);
-
   return (
     <View>
       <Modal
@@ -55,7 +53,7 @@ const DeveloperGames = ({
                   marginTop: 10,
                 }}>
                 {involvedCompanies.map((item, index) => {
-                  if (index === 1) {
+                  if (index === 0) {
                     return (
                       <Text
                         key={item.id}
@@ -89,7 +87,8 @@ const DeveloperGames = ({
           </View>
 
           {involvedCompanies.map((item, index) => {
-            if (index === 1 && item.company.developed) {
+
+            if (index === 1) {
               return (
                 <FlatList
                   data={item.company.developed}
@@ -106,11 +105,16 @@ const DeveloperGames = ({
                         <TouchableOpacity
                           activeOpacity={0.7}
                           onPress={() => navigation.navigate('GamePreview')}>
-                          <ImageBackground
-                            style={styles.containerGames}
-                            source={require('../../../../../Images/no_image.png')}
-                            imageStyle={{borderRadius: 5}}
-                          />
+                          <Text
+                            style={{
+                              color: 'white',
+                              textAlign: 'center',
+                              textAlignVertical: 'center',
+                              paddingRight: 15,
+                              paddingLeft: 15,
+                            }}>
+                            {item.name}
+                          </Text>
                         </TouchableOpacity>
                       );
                     } else if (item.cover.image_id) {
@@ -118,28 +122,9 @@ const DeveloperGames = ({
                         <View>
                           <TouchableOpacity
                             activeOpacity={0.7}
-                            onPress={() => navigation.push('GamePreview', {
-                            gameName: item.name, gameCover: item.cover.image_id, gameReleased: item.first_release_date,
-                            gamePlatforms: item.platforms,// x
-                            gameSummary: item.summary,//x
-                            similarGames: item.similar_games,//x
-                            Screenshot: item.screenshots,// x
-                            Videos: item.videos,//x
-                            // involveCompanies: item.involved_companies,
-                            // gameGenres: item.genres,
-                            // artworks: item.artworks,
-                            // total_Rating: item.total_rating,
-                            // age_Rating: item.age_ratings,
-                            // age_Rating_Description: item.age_ratings,
-                            // gameModes: item.game_modes,
-                            // multiplayerModes: item.multiplayer_modes,
-                            // playerPerspectives: item.player_perspectives,
-                            // gameEngine: item.game_engines,
-                            // gameSeries: item.collection,
-                            // gameDLC: item.dlcs,
-                            // item,
-                            
-                            })}>
+                            onPress={() =>
+                              navigation.push('GamePreview', {gameId: item.id})
+                            }>
                             <ImageBackground
                               style={styles.containerGames}
                               imageStyle={{borderRadius: 5}}
@@ -154,7 +139,7 @@ const DeveloperGames = ({
               );
             }
 
-            if (!item.company.developed && index === 1) {
+            else if (!item.company.developed && index === 0) {
               const published = item.company.published;
 
               return (
