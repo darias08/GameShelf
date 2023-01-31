@@ -17,12 +17,13 @@ const GameRating = (props) => {
   if (props.Rating > 89.5) ratingColor = '#82f51d', ratingStatus = 'Very Good'
   
   return (
-    <View style = {{marginTop: 30, marginLeft: 285, position: 'absolute'}}>
+    <View>
       {!isNaN(props.Rating) && (
         <CircularProgress
         value={props.Rating}
-        radius={35}
+        radius={40}
         activeStrokeWidth={5}
+        duration={1000}
         progressValueColor={'#ecf0f1'}
         activeStrokeColor={ratingColor}
         />

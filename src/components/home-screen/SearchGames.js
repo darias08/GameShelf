@@ -8,7 +8,7 @@ const SearchGames = () => {
     const [text, onChangeText] = React.useState(null);
 
     return (
-        <SafeAreaView style={{flexDirection: 'row', backgroundColor: COlORS.dark_gray, width: 370, marginLeft: 20, padding: 2 , marginTop: 35, borderRadius: 25}}>
+        <SafeAreaView style={{flexDirection: 'row', backgroundColor: COlORS.dark_gray, width: 355, marginLeft: 20, padding: 2 , marginTop: 30, borderRadius: 25}}>
             
             <Feather name='search' size={22} style={{marginLeft:15, marginTop: 10}} />
             <TextInput

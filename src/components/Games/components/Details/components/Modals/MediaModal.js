@@ -6,41 +6,28 @@ import {
   Image,
   Modal,
   ImageBackground,
+  FlatList,
+  Text,
+  ScrollView,
 } from 'react-native';
 import React, {useState, useCallback} from 'react';
 import COlORS from '../../../../../constants/colors';
 import {ActivityIndicator} from 'react-native-paper';
-import YoutubePlayer from 'react-native-youtube-iframe';
-import ItemSeparator from '../../../../../constants/ItemSeparator';
 import {getImage} from '../../../../../services/GameServices';
 import Swiper from 'react-native-swiper';
-import Video from 'react-native-video';
-import {
-  VideoPlayer,
-  DefaultMainControl,
-  DefaultBottomControlsBar,
-  videoId,
-} from 'react_native_youtube_streamer';
+import YoutubePlayer from 'react-native-youtube-iframe';
+import FastImage from 'react-native-fast-image';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+
 
 const {width, height} = Dimensions.get('screen');
-const SPACING = 10;
 
-const ModalTester = ({
-  closeModal,
-  showModal,
-  indexId,
-  allData,
-  indexClicked,
-}) => {
+const MediaModal = ({closeModal, showModal, indexId, allData}) => {
   const [playing, setPlaying] = useState(true);
-
-  const indexMatch = indexId;
-
-  const Data = allData;
-
-  const indexClick = indexClicked;
-
   const [visible, setIsVisible] = useState(false);
+  const [activeSlide, setActiveSlide] = useState(0);
+  const indexMatch = indexId;
+  const Data = allData;
 
   const toggleModal = () => {
     closeModal(false);
@@ -50,7 +37,19 @@ const ModalTester = ({
     if (state === 'ended') {
       setPlaying(false);
     }
+
+    if(state === 'paused') {
+      setPlaying(false)
+    }
+    
   }, []);
+
+  const togglePlaying = useCallback(() => {
+    setPlaying(prev => !prev);
+
+  }, []);
+
+  console.log(activeSlide)
 
   return (
     <View>
@@ -72,34 +71,96 @@ const ModalTester = ({
             </TouchableOpacity>
           </View>
 
-          <Swiper loop={false} index={indexMatch} pagingEnabled>
+          <Swiper
+            loop={false}
+            index={indexMatch}
+            onIndexChanged={(index) => setActiveSlide(index)}
+            >
             {Data.map((item, index) => {
               if (item.video_id) {
-                return (
-                  <View key={item.id} style={{backgroundColor: 'black', height: 225}}>
-                      
-                     
-                      
+               
+               return (
+                <View key={item.id}>
+                  {
+                  activeSlide === index ? (
+                  <View>
+                  
+                  <View>
+                    
+
                   </View>
-                );
-              } else if (item.image_id)
+
+                  <View
+                    style={{
+                      marginTop: 255,
+                      backgroundColor: 'grey',
+                      height: 225
+                    }}
+                    pointerEvents="none">
+                    <YoutubePlayer
+                      height={300}
+                      play={playing}
+                      mute
+                      videoId={item.video_id}
+                      forceAndroidAutoplay={true}
+                      onChangeState={onStateChange}
+                      initialPlayerParams={{
+                        controls: false,
+                        modestbranding: false,
+                      }}
+                    />
+                    <TouchableOpacity
+                      style={{
+                        height: 50,
+                        width: '100%',
+                        position: 'absolute',
+                        marginTop: 0,
+                      }}
+                    />
+                  </View>
+                  {
+                    playing ? (
+                      <TouchableOpacity onPress={togglePlaying}>
+                      <FontAwesome name='pause' size={25} color={'white'} style={{marginLeft: 40, position: 'absolute'}} />
+                    </TouchableOpacity>
+                    ) : (
+                      <TouchableOpacity onPress={togglePlaying}>
+                        <FontAwesome name='play' size={25} color={'white'} style={{marginLeft: 40, position: 'absolute'}} />
+                      </TouchableOpacity>
+                    )
+                  }
+                  
+                  </View>
+                    ) : null
+                  }               
+                </View>
+               )
+
+              } 
+              else if (item.image_id) {
                 return (
                   <View
                     key={item.id}
                     style={{
                       justifyContent: 'center',
-                      alignItems: 'center',
                       flex: 1,
                       marginBottom: 65,
                     }}>
-                    <ImageBackground
-                      resizeMode="stretch"
+                    <FastImage
+                      resizeMode="cover"
                       key={item.id}
                       source={{uri: getImage(item.image_id)}}
-                      style={{width: width, height: 230}}
+                      style={{
+                        width: width,
+                        height: 230,
+                        backgroundColor: '#2A282E',
+                      }}
                     />
+                    
                   </View>
-                );
+                )
+              }
+                
             })}
           </Swiper>
         </View>
@@ -165,4 +226,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ModalTester;
+export default MediaModal;

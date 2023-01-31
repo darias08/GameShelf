@@ -36,8 +36,8 @@ function MyTabs() {
     <StatusBar hidden/>  
       <Tab.Navigator
       activeColor={COlORS.lightBlue}
-      inactiveColor= '#666666' 
-      barStyle={{backgroundColor: '#0C0C0D'}} 
+      inactiveColor= '#525259' 
+      barStyle={{backgroundColor: '#1C1C1F'}} 
       initialRouteName='Home' 
       screenOptions={({route}) => ({
         tabBarIcon: ({focused, color, size, fontSize}) => {
@@ -101,7 +101,7 @@ const UserIsSignedIn = () => {
       <Stack.Navigator
         detachInactiveScreens={false}
         screenOptions={{
-        headerShown: false
+        headerShown: false,
         }}
       >
       {/* Bottom Tabs */}

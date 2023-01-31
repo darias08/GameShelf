@@ -17,7 +17,7 @@ const ListOfGenres = props => {
     const data = props.data;
 
   return (
-    <ScrollView horizontal={false} style={{width: '100%', paddingLeft: 5}}>
+    <ScrollView horizontal={false} style={{width: '100%'}}>
        <FlatList
         data={data}
         keyExtractor={item => item.id.toString()}

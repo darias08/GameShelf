@@ -17,14 +17,10 @@ import COlORS from '../constants/colors';
 import {getImage} from '../services/GameServices';
 import {BoxShadow} from 'react-native-shadow';
 import MostAntcipatedFlatlist from '../constants/MostAntcipatedFlatlist';
+import Carousel from 'react-native-reanimated-carousel';
 
 
 const {width} = Dimensions.get('window');
-
-const SPACING = 10;
-const ITEM_SIZE = width * 0.6;
-
-const SCREEN_WIDTH = Dimensions.get('window').width
 
 const MostAnticipatedGames = props => {
 
@@ -37,7 +33,8 @@ const MostAnticipatedGames = props => {
 
   return (
     <View>
-    <Text style={{color: COlORS.white, fontSize: 20, fontFamily: 'RobotoSlab-Regular', marginLeft: 25}}>Most Anticipated Games</Text>
+    <Text style={{color: COlORS.white, fontSize: 20, fontFamily: 'RobotoSlab-Regular', marginLeft: 25, marginTop: 30}}>Most Anticipated Games</Text>
+    
       <FlatList
         data={listOfGames}
         keyExtractor={keyExtractor}
@@ -48,7 +45,9 @@ const MostAnticipatedGames = props => {
         contentContainerStyle={{ alignItems: 'center' }}
         disableVirtualization={true}
         legacyImplementation={true}
-        ItemSeparatorComponent={() => <ItemSeparator width={10} />}
+        onEndReachedThreshold={50}
+        initialNumToRender={10}
+        ItemSeparatorComponent={() => <ItemSeparator width={20} />}
         ListHeaderComponent={() => <ItemSeparator width={20} />}
         ListFooterComponent={() => <ItemSeparator width={10} />}
         renderItem={renderItem}

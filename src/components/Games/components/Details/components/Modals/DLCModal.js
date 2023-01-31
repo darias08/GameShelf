@@ -7,19 +7,19 @@ import {
   Image,
   Modal,
   ImageBackground,
-  StatusBar,
 } from 'react-native';
 import React from 'react';
 import COlORS from '../../../../../constants/colors';
 import {FlatList} from 'react-native-gesture-handler';
 import {getImage} from '../../../../../services/GameServices';
+import FastImage from 'react-native-fast-image';
 
-const DLCModal = ({showModal, closeModal, gameName, gameDLC}) => {
+const getWidth = Dimensions.get('window').width
+
+const DLCModal = ({showModal, closeModal, gameName, gameDLC, navigation}) => {
   const toggleModal = () => {
     closeModal(false);
   };
-
-  const dlcs = gameDLC;
 
   return (
     <View>
@@ -35,7 +35,7 @@ const DLCModal = ({showModal, closeModal, gameName, gameDLC}) => {
           <View style={{flexDirection: 'row', paddingRight: 80}}>
             <TouchableOpacity activeOpacity={0.8} onPress={toggleModal}>
               <Image
-                style={{width: 45, height: 45, marginLeft: 30, marginTop: 20}}
+                style={{width: 45, height: 45, marginLeft: 30, marginTop: 30}}
                 source={require('../../../../../Images/Icons/chevron_left_circle.png')}
               />
             </TouchableOpacity>
@@ -46,14 +46,15 @@ const DLCModal = ({showModal, closeModal, gameName, gameDLC}) => {
                   flexDirection: 'column',
                   flexShrink: 1,
                   marginTop: 10,
+                  justifyContent: 'center',
+                  alignItems: 'center',
                 }}>
                 <Text
                   style={{
-                    fontSize: 15,
+                    fontSize: 18,
                     color: COlORS.grey,
                     textAlignVertical: 'center',
-                    textAlign: 'center',
-                    marginLeft: 3,
+                    flexDirection: 'row'
                   }}>
                   {gameName}
                 </Text>
@@ -63,8 +64,6 @@ const DLCModal = ({showModal, closeModal, gameName, gameDLC}) => {
                     fontSize: 20,
                     color: COlORS.white,
                     fontWeight: 'bold',
-                    textAlignVertical: 'center',
-                    textAlign: 'center',
                     paddingBottom: 20,
                   }}>
                   DLC
@@ -74,7 +73,7 @@ const DLCModal = ({showModal, closeModal, gameName, gameDLC}) => {
           </View>
 
           <FlatList
-            data={dlcs}
+            data={gameDLC}
             keyExtractor={(item, index) => {
               return index.toString();
             }}
@@ -85,23 +84,23 @@ const DLCModal = ({showModal, closeModal, gameName, gameDLC}) => {
               if (!item.cover) {
                 return (
                   <TouchableOpacity activeOpacity={0.7}>
-                    <ImageBackground
+                    <FastImage
                       style={styles.containerGames}
                       imageStyle={{borderRadius: 5}}>
                         <Text>Game name</Text>
-                      </ImageBackground>
+                      </FastImage>
                   </TouchableOpacity>
                 );
               } else if (item.cover.image_id) {
                 return (
                   <View>
-                    <TouchableOpacity activeOpacity={0.7}>
-                      <ImageBackground
+                    <TouchableOpacity activeOpacity={0.7} onPress={() => navigation.push('GamePreview', {gameId: item.id})}>
+                      <FastImage
                         style={styles.containerGames}
                         imageStyle={{borderRadius: 5}}
-                        source={{uri: getImage(item.cover.image_id)}}>
-                    
-                      </ImageBackground>
+                        source={{uri: getImage(item.cover.image_id)}}
+                        
+                        />
                     </TouchableOpacity>
                   </View>
                 );
@@ -116,9 +115,9 @@ const DLCModal = ({showModal, closeModal, gameName, gameDLC}) => {
 
 const styles = StyleSheet.create({
   columnWrapper: {
-    paddingLeft: 35,
-    paddingTop: 20,
-    paddingEnd: 40,
+    paddingLeft: 20,
+    paddingTop: 5,
+    paddingEnd: 20,
     paddingBottom: 15,
     justifyContent: 'space-between',
   },
@@ -126,11 +125,9 @@ const styles = StyleSheet.create({
   containerGames: {
     backgroundColor: COlORS.light_gray,
     height: 230,
-    width: 160,
+    width: 170,
     borderRadius: 5,
     elevation: 12,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
 });
 

@@ -11,7 +11,6 @@ IGDB_IMAGE_ID,
 } from '../constants/Urls'
 import {TWITCH_ACCESS_TOKEN, TWITCH_CLIENT_ID} from '@env'
 
-//similar_games.cover.image_id,
 
 const IGDB_HTTP_REQUEST_MOST_ANTICIPATED = () => {
 
@@ -51,51 +50,17 @@ const IGDB_HTTP_REQUEST_POPULAR = () => {
                 'Client-ID': TWITCH_CLIENT_ID,
                 'Authorization': TWITCH_ACCESS_TOKEN,
         },
-        data: `fields name, cover.image_id, total_rating, involved_companies.company.parent.name, age_ratings.rating, age_ratings.content_descriptions.description, artworks.image_id, involved_companies.company.name, 
+        data: `fields name, total_rating, involved_companies.company.parent.name, age_ratings.rating, age_ratings.content_descriptions.description, artworks.image_id, involved_companies.company.name, 
         screenshots.image_id,
-        collection.name, follows, summary, rating_count, first_release_date, 
-        similar_games.cover.image_id, collection.games.cover.image_id, similar_games.cover.image_id, similar_games.name, 
-        similar_games.first_release_date, 
-        similar_games.involved_companies.company.name, 
-        similar_games.summary, similar_games.similar_games,
-        involved_companies.developer,
-        involved_companies.company.developed.similar_games.cover.image_id, 
-        involved_companies.company.developed.platforms.name, 
-        involved_companies.company.developed.summary, 
-        involved_companies.company.developed.first_release_date, 
-        involved_companies.company.developed.involved_companies.company.name, involved_companies.company.developed.name, dlcs.cover.image_id,
-        involved_companies.company.published.cover.image_id, involved_companies.company.developed.screenshots.image_id, involved_companies.company.developed.videos.video_id, 
-        involved_companies.company.developed.cover.image_id, 
-        platforms.name, game_modes.*, game_engines.*, multiplayer_modes.*, player_perspectives.name,  videos.video_id, release_dates.human, release_dates.date, 
-        genres.name, release_dates.category;
+        follows, summary, rating_count, first_release_date, 
+        involved_companies.developer,       
+        platforms.abbreviation, release_dates.human, release_dates.date, 
+        genres.name, genres.slug, release_dates.category;
         sort follows desc;
         where platforms = (6, 48, 49, 130, 167, 169) & first_release_date > ${last3MonthsUnix} & first_release_date < ${now} & (follows > 1 | rating_count > 1) & total_rating >= 75 ;
-        limit 10;`
+        limit 12;`
 
-        /*
-        `fields name, cover.image_id, total_rating, involved_companies.company.parent.name, age_ratings.rating, age_ratings.content_descriptions.description, artworks.image_id, involved_companies.company.name, 
-        screenshots.image_id,
-        collection.name, follows, summary, rating_count, first_release_date, 
-        similar_games.cover.image_id, collection.games.cover.image_id, similar_games.cover.image_id, similar_games.name, 
-        similar_games.first_release_date, 
-        similar_games.involved_companies.company.name, 
-        similar_games.summary, similar_games.similar_games,
-        involved_companies.developer,
-        involved_companies.company.developed.similar_games.cover.image_id, 
-        involved_companies.company.developed.platforms.name, 
-        involved_companies.company.developed.summary, 
-        involved_companies.company.developed.first_release_date, 
-        involved_companies.company.developed.involved_companies.company.name, involved_companies.company.developed.name, dlcs.cover.image_id,
-        involved_companies.company.published.cover.image_id, involved_companies.company.developed.screenshots.image_id, involved_companies.company.developed.videos.video_id, 
-        involved_companies.company.developed.cover.image_id, 
-        platforms.name, game_modes.*, game_engines.*, multiplayer_modes.*, player_perspectives.name,  videos.video_id, release_dates.human, release_dates.date, 
-        genres.name, release_dates.category;
-        sort follows desc;
-        where platforms = (6, 48, 49, 130, 167, 169) & first_release_date > ${last3MonthsUnix} & first_release_date < ${now} & (follows > 1 | rating_count > 1) & total_rating >= 78 ;
-        limit 500;`
-        */
 
-        
     })
 }
 

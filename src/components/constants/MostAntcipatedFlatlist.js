@@ -23,10 +23,10 @@ const {width} = Dimensions.get('window');
 const MostAntcipatedFlatlist = ({item, index, navigation}) => {
   
   const shadowOpt = {
-    width: 150,
-    height: 200,
+    width: 170,
+    height: 240,
     color: '#000',
-    border: 10,
+    border: 15,
     radius: 10,
     blur: 10,
     opacity: 0.6,
@@ -36,8 +36,8 @@ const MostAntcipatedFlatlist = ({item, index, navigation}) => {
 
 
   return (
-    <View>
-
+    <View style={{}}>
+      
         <TouchableOpacity
           activeOpacity={0.7}
           onPress={() =>
@@ -46,7 +46,7 @@ const MostAntcipatedFlatlist = ({item, index, navigation}) => {
             })
           }>
           <BoxShadow setting={shadowOpt}>
-
+          
           <FastImage
           style={styles.containerGames}
           resizeMode={'cover'}
@@ -68,10 +68,10 @@ const MostAntcipatedFlatlist = ({item, index, navigation}) => {
 const styles = StyleSheet.create({
     containerGames: {
         backgroundColor: COlORS.light_gray,
-        height: 200,
-        width: 140,
+        height: 240,
+        width: 170,
         marginBottom: 5,
-        borderRadius: 12,
+        borderRadius: 15,
     },
 
     genre: {
